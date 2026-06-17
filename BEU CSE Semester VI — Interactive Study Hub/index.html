@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BEU CSE Semester VI — Interactive Study Hub</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="assets/icon.png" type="image/png">
+</head>
+<body style="background: transparent;">
+  <!-- Background Pattern -->
+  <div class="futuristic-pattern">
+    <span class="ripple-overlay"></span>
+    <svg class="texture-filter" style="display: none;">
+      <filter id="advanced-texture">
+        <feTurbulence result="noise" numOctaves="3" baseFrequency="0.7" type="fractalNoise"></feTurbulence>
+        <feSpecularLighting result="specular" lighting-color="#fff" specularExponent="20" specularConstant="0.8" surfaceScale="2" in="noise">
+          <fePointLight z="100" y="50" x="50"></fePointLight>
+        </feSpecularLighting>
+        <feComposite result="litNoise" operator="in" in2="SourceGraphic" in="specular"></feComposite>
+        <feBlend mode="overlay" in2="litNoise" in="SourceGraphic"></feBlend>
+      </filter>
+    </svg>
+  </div>
+  <!-- Splash Screen Loader -->
+  <div id="splash-loader">
+    <div class="main-container">
+      <div class="loader">
+        <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="chipGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2d2d2d"></stop>
+              <stop offset="100%" stop-color="#0f0f0f"></stop>
+            </linearGradient>
+
+            <linearGradient id="textGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#eeeeee"></stop>
+              <stop offset="100%" stop-color="#888888"></stop>
+            </linearGradient>
+
+            <linearGradient id="pinGradient" x1="1" y1="0" x2="0" y2="0">
+              <stop offset="0%" stop-color="#bbbbbb"></stop>
+              <stop offset="50%" stop-color="#888888"></stop>
+              <stop offset="100%" stop-color="#555555"></stop>
+            </linearGradient>
+          </defs>
+
+          <g id="traces">
+            <path d="M100 100 H200 V210 H326" class="trace-bg"></path>
+            <path d="M100 100 H200 V210 H326" class="trace-flow purple"></path>
+
+            <path d="M80 180 H180 V230 H326" class="trace-bg"></path>
+            <path d="M80 180 H180 V230 H326" class="trace-flow blue"></path>
+
+            <path d="M60 260 H150 V250 H326" class="trace-bg"></path>
+            <path d="M60 260 H150 V250 H326" class="trace-flow yellow"></path>
+
+            <path d="M100 350 H200 V270 H326" class="trace-bg"></path>
+            <path d="M100 350 H200 V270 H326" class="trace-flow green"></path>
+
+            <path d="M700 90 H560 V210 H474" class="trace-bg"></path>
+            <path d="M700 90 H560 V210 H474" class="trace-flow blue"></path>
+
+            <path d="M740 160 H580 V230 H474" class="trace-bg"></path>
+            <path d="M740 160 H580 V230 H474" class="trace-flow green"></path>
+
+            <path d="M720 250 H590 V250 H474" class="trace-bg"></path>
+            <path d="M720 250 H590 V250 H474" class="trace-flow red"></path>
+
+            <path d="M680 340 H570 V270 H474" class="trace-bg"></path>
+            <path d="M680 340 H570 V270 H474" class="trace-flow yellow"></path>
+          </g>
+
+          <rect x="330" y="190" width="140" height="100" rx="20" ry="20" fill="url(#chipGradient)" stroke="#222" stroke-width="3" filter="drop-shadow(0 0 6px rgba(0,0,0,0.8))"></rect>
+
+          <g>
+            <rect x="322" y="205" width="8" height="10" fill="url(#pinGradient)" rx="2"></rect>
+            <rect x="322" y="225" width="8" height="10" fill="url(#pinGradient)" rx="2"></rect>
+            <rect x="322" y="245" width="8" height="10" fill="url(#pinGradient)" rx="2"></rect>
+            <rect x="322" y="265" width="8" height="10" fill="url(#pinGradient)" rx="2"></rect>
+          </g>
+
+          <g>
+            <rect x="470" y="205" width="8" height="10" fill="url(#pinGradient)" rx="2"></rect>
+            <rect x="470" y="225" width="8" height="10" fill="url(#pinGradient)" rx="2"></rect>
+            <rect x="470" y="245" width="8" height="10" fill="url(#pinGradient)" rx="2"></rect>
+            <rect x="470" y="265" width="8" height="10" fill="url(#pinGradient)" rx="2"></rect>
+          </g>
+
+          <text x="400" y="240" font-family="Arial, sans-serif" font-size="22" fill="url(#textGradient)" text-anchor="middle" alignment-baseline="middle">Loading</text>
+
+          <circle cx="100" cy="100" r="5" fill="black"></circle>
+          <circle cx="80" cy="180" r="5" fill="black"></circle>
+          <circle cx="60" cy="260" r="5" fill="black"></circle>
+          <circle cx="100" cy="350" r="5" fill="black"></circle>
+          <circle cx="700" cy="90" r="5" fill="black"></circle>
+          <circle cx="740" cy="160" r="5" fill="black"></circle>
+          <circle cx="720" cy="250" r="5" fill="black"></circle>
+          <circle cx="680" cy="340" r="5" fill="black"></circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <header id="hdr">
+    <nav>
+      <a class="logo" href="index.html" onclick="window.location.reload(); return false;">
+        <div class="logo-icon"><img src="assets/icon.png" alt="Logo" style="width: 24px; height: 24px; object-fit: contain; display: block;"></div>
+        <span class="logo-text">BEU CSE · Sem VI</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><button class="tab-btn active" onclick="showUnit(0,this)"><i class="ti ti-network"></i> CN</button></li>
+        <li><button class="tab-btn" onclick="showUnit(1,this)"><i class="ti ti-code"></i> CD</button></li>
+        <li><button class="tab-btn" onclick="showUnit(2,this)"><i class="ti ti-brain"></i> ML</button></li>
+        <li><button class="tab-btn" onclick="showUnit(3,this)"><i class="ti ti-list-check"></i> Electives</button></li>
+        <li><button class="tab-btn" onclick="showUnit(4,this)"><i class="ti ti-flask"></i> Labs</button></li>
+        <li><button class="tab-btn" onclick="showUnit(5,this)"><i class="ti ti-help-circle"></i> Quiz</button></li>
+        <li><button class="tab-btn" onclick="showUnit(6,this)"><i class="ti ti-bookmark"></i> My Notes</button></li>
+        <li><button class="search-trigger" onclick="openSearch()"><i class="ti ti-search"></i> Search</button></li>
+      </ul>
+      <div class="header-actions">
+        <a href="login.html" class="btn" style="text-decoration:none; display:flex; align-items:center; gap:4px; padding: 6px 12px; font-weight:600;"><i class="ti ti-user"></i> Login</a>
+        <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme"><i class="ti ti-sun" id="themeIcon"></i></button>
+        <div class="hamburger" id="ham" onclick="toggleHam()"><span></span><span></span><span></span></div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-badge"><div class="pulse"></div> Bihar Engineering University · Patna</div>
+        <h1 class="hero-title">B.Tech CSE<br>Semester VI</h1>
+        <p class="hero-sub">Complete interactive study hub — syllabus, visual diagrams, calculators, and quiz for all subjects including Computer Networks, Compiler Design, Machine Learning and electives.</p>
+        <div class="hero-stats">
+          <div class="hstat"><div class="hstat-n">9</div><div class="hstat-l">Courses</div></div>
+          <div class="hstat"><div class="hstat-n">23</div><div class="hstat-l">Credits</div></div>
+          <div class="hstat"><div class="hstat-n">15</div><div class="hstat-l">Electives</div></div>
+          <div class="hstat"><div class="hstat-n">4</div><div class="hstat-l">Labs</div></div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="subject-pills">
+          <div class="subj-pill" onclick="showUnit(0,document.querySelectorAll('.tab-btn')[0])">
+            <div class="pill-icon pill-icon-orange"><i class="ti ti-network"></i></div>
+            <div><div class="pill-name">Computer Networks</div><div class="pill-code">100602</div></div>
+            <span class="pill-cr">3 cr</span>
+          </div>
+          <div class="subj-pill" onclick="showUnit(1,document.querySelectorAll('.tab-btn')[1])">
+            <div class="pill-icon pill-icon-purple"><i class="ti ti-code"></i></div>
+            <div><div class="pill-name">Compiler Design</div><div class="pill-code">105601</div></div>
+            <span class="pill-cr">3 cr</span>
+          </div>
+          <div class="subj-pill" onclick="showUnit(2,document.querySelectorAll('.tab-btn')[2])">
+            <div class="pill-icon pill-icon-teal"><i class="ti ti-brain"></i></div>
+            <div><div class="pill-name">Machine Learning</div><div class="pill-code">105602</div></div>
+            <span class="pill-cr">4 cr</span>
+          </div>
+          <div class="subj-pill" onclick="showUnit(3,document.querySelectorAll('.tab-btn')[3])">
+            <div class="pill-icon pill-icon-darkorange"><i class="ti ti-list-check"></i></div>
+            <div><div class="pill-name">Electives (I & II)</div><div class="pill-code">1056XX</div></div>
+            <span class="pill-cr">6 cr</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="unit-tabs-bar">
+      <button class="unit-tab active" onclick="showUnit(0,this)"><i class="ti ti-network"></i> Computer Networks</button>
+      <button class="unit-tab" onclick="showUnit(1,this)"><i class="ti ti-code"></i> Compiler Design</button>
+      <button class="unit-tab" onclick="showUnit(2,this)"><i class="ti ti-brain"></i> Machine Learning</button>
+      <button class="unit-tab" onclick="showUnit(3,this)"><i class="ti ti-list-check"></i> Electives</button>
+      <button class="unit-tab" onclick="showUnit(4,this)"><i class="ti ti-flask"></i> Labs</button>
+      <button class="unit-tab" onclick="showUnit(5,this)"><i class="ti ti-help-circle"></i> Quiz</button>
+      <button class="unit-tab" onclick="showUnit(6,this)"><i class="ti ti-bookmark"></i> My Notes</button>
+    </div>
+
+    <div class="unit-panel active" id="panel-0">
+      <div class="viz-section">
+        <div class="viz-title">OSI Model — 7 Layers</div>
+        <p class="viz-sub">The Open Systems Interconnection model defines how data is transmitted across a network, from physical signals to application data.</p>
+        <div class="split-grid">
+          <div>
+            <div class="column-header">Layers (Top → Bottom)</div>
+            <div class="layer-item nl-app">7. Application — HTTP, FTP, DNS, SMTP</div>
+            <div class="layer-item nl-pres">6. Presentation — Encoding, Encryption</div>
+            <div class="layer-item nl-sess">5. Session — Session management</div>
+            <div class="layer-item nl-trans">4. Transport — TCP, UDP, SCTP</div>
+            <div class="layer-item nl-net">3. Network — IP, Routing, ARP</div>
+            <div class="layer-item nl-dl">2. Data Link — MAC, CRC, ARQ</div>
+            <div class="layer-item nl-phy">1. Physical — Cables, Signals</div>
+          </div>
+          <div>
+            <div class="column-header">TCP/IP vs OSI Mapping</div>
+            <div class="mapping-list">
+              <div class="mapping-row">
+                <div class="mapping-card purple-card">Application<br><span class="sub-label">OSI 5-7</span></div>
+                <i class="ti ti-arrows-horizontal mapping-arrow-icon"></i>
+                <div class="mapping-card blue-card">Application<br><span class="sub-label">TCP/IP</span></div>
+              </div>
+              <div class="mapping-row">
+                <div class="mapping-card orange-card">Transport<br><span class="sub-label">OSI 4</span></div>
+                <i class="ti ti-arrows-horizontal mapping-arrow-icon"></i>
+                <div class="mapping-card orange-card">Transport<br><span class="sub-label">TCP/IP</span></div>
+              </div>
+              <div class="mapping-row">
+                <div class="mapping-card red-card">Network<br><span class="sub-label">OSI 3</span></div>
+                <i class="ti ti-arrows-horizontal mapping-arrow-icon"></i>
+                <div class="mapping-card red-card">Internet<br><span class="sub-label">TCP/IP</span></div>
+              </div>
+              <div class="mapping-row">
+                <div class="mapping-card teal-card">Data Link + Phy<br><span class="sub-label">OSI 1-2</span></div>
+                <i class="ti ti-arrows-horizontal mapping-arrow-icon"></i>
+                <div class="mapping-card teal-card">Network Access<br><span class="sub-label">TCP/IP</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="topic-tag tag-accent">Unit 1 · 6 hrs</span>
+          <div class="topic-title">Data Communication & Network Basics</div>
+          <div class="topic-desc">Network topologies, OSI model deep dive, transmission media (guided vs unguided), LAN/WAN architectures, and virtual LAN concepts.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-blue">1.1 Introduction to Data Communication</h4>
+            <p class="mb-10">Data communication involves the transfer of digital data between two or more nodes through a transmission medium. The effectiveness depends on four fundamental characteristics: <strong>Delivery, Accuracy, Timeliness, and Jitter</strong>.</p>
+            
+            <div class="callout-box callout-accent mb-10">
+              <strong>Components of Data Communication:</strong><br>
+              <ul class="bullet-list ml-24">
+                <li><strong>Message:</strong> The information (data) to be communicated (text, numbers, pictures, audio).</li>
+                <li><strong>Sender & Receiver:</strong> The devices initiating and accepting the transmission.</li>
+                <li><strong>Transmission Medium:</strong> The physical path by which a message travels (Twisted-pair wire, Coaxial cable, Fiber-optic, Radio waves).</li>
+                <li><strong>Protocol:</strong> A set of rules that govern data communications. Without protocols, devices may be connected but cannot understand each other.</li>
+              </ul>
+            </div>
+
+            <h4 class="mt-16 mb-10 text-blue">1.2 Network Topologies Visualized</h4>
+            <p class="mb-10">The physical or logical layout of a network. Choosing a topology impacts cost, scalability, and fault tolerance.</p>
+            
+            <div class="container-box mb-10" style="display:flex; justify-content:center; padding:1.5rem; background: var(--bg-secondary); border: 1px dashed var(--border-s);">
+              <!-- Inline SVG for Network Topologies -->
+              <svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Star Topology -->
+                <g transform="translate(60, 100)">
+                  <text x="0" y="-70" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="currentColor">STAR TOPOLOGY</text>
+                  <!-- Hub -->
+                  <circle cx="0" cy="0" r="15" fill="#f97316"/>
+                  <text x="0" y="4" font-family="sans-serif" font-size="10" fill="#fff" text-anchor="middle">Hub</text>
+                  <!-- Nodes & Links -->
+                  <line x1="0" y1="-15" x2="0" y2="-40" stroke="#f97316" stroke-width="2"/>
+                  <rect x="-10" y="-55" width="20" height="15" fill="#3b82f6" rx="2"/>
+                  <line x1="15" y1="0" x2="40" y2="0" stroke="#f97316" stroke-width="2"/>
+                  <rect x="40" y="-7.5" width="20" height="15" fill="#3b82f6" rx="2"/>
+                  <line x1="-15" y1="0" x2="-40" y2="0" stroke="#f97316" stroke-width="2"/>
+                  <rect x="-60" y="-7.5" width="20" height="15" fill="#3b82f6" rx="2"/>
+                  <line x1="0" y1="15" x2="0" y2="40" stroke="#f97316" stroke-width="2"/>
+                  <rect x="-10" y="40" width="20" height="15" fill="#3b82f6" rx="2"/>
+                </g>
+
+                <!-- Mesh Topology -->
+                <g transform="translate(260, 100)">
+                  <text x="0" y="-70" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="currentColor">FULL MESH TOPOLOGY</text>
+                  <!-- Nodes -->
+                  <rect id="n1" x="-30" y="-40" width="20" height="15" fill="#10b981" rx="2"/>
+                  <rect id="n2" x="10" y="-40" width="20" height="15" fill="#10b981" rx="2"/>
+                  <rect id="n3" x="-45" y="10" width="20" height="15" fill="#10b981" rx="2"/>
+                  <rect id="n4" x="25" y="10" width="20" height="15" fill="#10b981" rx="2"/>
+                  <rect id="n5" x="-10" y="40" width="20" height="15" fill="#10b981" rx="2"/>
+                  <!-- Links (Approximate centers) -->
+                  <path d="M-20,-25 L20,-25 M-20,-25 L-35,10 M-20,-25 L35,10 M-20,-25 L0,40 M20,-25 L-35,10 M20,-25 L35,10 M20,-25 L0,40 M-35,10 L35,10 M-35,10 L0,40 M35,10 L0,40" stroke="#10b981" stroke-width="1.5" opacity="0.6"/>
+                </g>
+              </svg>
+            </div>
+            
+            <table class="data-table mb-10">
+              <thead><tr><th>Topology</th><th>Pros</th><th>Cons</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Star</strong></td><td>Easy to install, robust, fault isolation</td><td>Single point of failure (Hub/Switch)</td></tr>
+                <tr><td><strong>Mesh</strong></td><td>No traffic issues, extremely robust & secure</td><td>Expensive, difficult installation, huge cabling</td></tr>
+                <tr><td><strong>Bus</strong></td><td>Easy to connect, requires less cable</td><td>Difficult fault isolation, hard to scale</td></tr>
+                <tr><td><strong>Ring</strong></td><td>Equal access, orderly network</td><td>One node failure can break the ring</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="mt-16 mb-10 text-blue">1.3 Transmission Media</h4>
+            <p class="mb-10">Media can be categorized into <strong>Guided (wired)</strong> and <strong>Unguided (wireless)</strong>.</p>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Twisted Pair:</strong> STP (Shielded) and UTP (Unshielded). Common in LANs (Cat5e, Cat6). Uses RJ-45 connectors.</li>
+              <li><strong>Coaxial Cable:</strong> Higher frequency range than twisted pair. Used in Cable TV.</li>
+              <li><strong>Fiber-Optic:</strong> Transmits signals via light (photons) instead of electrons. Uses Total Internal Reflection. Immune to Electromagnetic Interference (EMI).</li>
+              <li><strong>Unguided Media:</strong> Radio waves (multicast, omnidirectional), Microwaves (unicast, line-of-sight), and Infrared (short-range, line-of-sight).</li>
+            </ul>
+
+            <h4 class="mt-16 mb-10 text-blue">1.4 OSI Model Recap & Layer Interactions</h4>
+            <p class="mb-10"><strong>Encapsulation:</strong> As data moves from layer 7 down to layer 1, each layer adds its own header (and sometimes trailer). This is encapsulation. Decapsulation happens at the receiver end.</p>
+            <div class="callout-box callout-teal mb-10">
+              <strong>Protocol Data Units (PDUs):</strong><br>
+              - Layers 5-7 (App, Pres, Sess): <strong>Data</strong> / Message<br>
+              - Layer 4 (Transport): <strong>Segment</strong> (TCP) or Datagram (UDP)<br>
+              - Layer 3 (Network): <strong>Packet</strong><br>
+              - Layer 2 (Data Link): <strong>Frame</strong><br>
+              - Layer 1 (Physical): <strong>Bits</strong>
+            </div>
+          </div>
+        </div>
+        
+        <div class="topic-card">
+          <span class="topic-tag tag-accent">Unit 2 · 6 hrs</span>
+          <div class="topic-title">Bandwidth Utilization & Multiplexing</div>
+          <div class="topic-desc">FDM, TDM, WDM techniques, Spread Spectrum (DSSS & FHSS), and efficient channel usage.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-blue">2.1 Multiplexing Overview</h4>
+            <p class="mb-10"><strong>Multiplexing</strong> allows the simultaneous transmission of multiple signals across a single data link. A Multiplexer (MUX) combines the signals, and a Demultiplexer (DEMUX) separates them at the destination.</p>
+            
+            <table class="data-table mb-10">
+              <thead>
+                <tr><th>Type</th><th>Description</th><th>Domain</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>FDM (Frequency Division)</strong></td><td>Assigns non-overlapping frequency ranges to different signals. Used in Radio/TV.</td><td>Analog</td></tr>
+                <tr><td><strong>WDM (Wavelength Division)</strong></td><td>Combines different colors of light onto a single optical fiber.</td><td>Analog/Optical</td></tr>
+                <tr><td><strong>TDM (Time Division)</strong></td><td>Allocates alternating time slots to signals. Synchronous TDM assigns empty slots; Statistical TDM skips empty ones.</td><td>Digital</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="mt-16 mb-10 text-blue">2.2 Spread Spectrum Communication</h4>
+            <p class="mb-10">Spread spectrum techniques spread the bandwidth needed to transmit data over a much wider range than strictly necessary. This prevents jamming, eavesdropping, and fading.</p>
+            
+            <div class="callout-box callout-accent mb-10">
+              <strong>FHSS (Frequency Hopping Spread Spectrum):</strong><br>
+              The signal rapidly hops among many different frequencies in a pseudo-random sequence known to both sender and receiver. Used in original Bluetooth.<br><br>
+              <strong>DSSS (Direct Sequence Spread Spectrum):</strong><br>
+              The original data signal is multiplied by a "chipping code" (a high-speed sequence of bits). This spreads the signal across a wide frequency band. Used in 802.11b Wi-Fi.
+            </div>
+
+            <div class="container-box mt-10" style="background:var(--bg-primary); padding:1rem;">
+              <strong>Nyquist Bit Rate vs Shannon Capacity:</strong><br>
+              <ul class="bullet-list ml-24 mt-8">
+                <li><em>Nyquist (Noiseless Channel):</em> BitRate = 2 * Bandwidth * log2(L), where L is the number of signal levels.</li>
+                <li><em>Shannon (Noisy Channel):</em> Capacity = Bandwidth * log2(1 + SNR), where SNR is the Signal-to-Noise Ratio.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-green">Unit 3 · 8 hrs</span>
+          <div class="topic-title">Data Link & MAC Sub-Layer Deep Dive</div>
+          <div class="topic-desc">Error detection/correction (CRC, Hamming), flow/error control (ARQ protocols), MAC algorithms (ALOHA, CSMA/CD, CSMA/CA).</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-teal">3.1 Error Detection and Correction</h4>
+            <p class="mb-10">Data Link layer guarantees reliable node-to-node delivery, detecting errors introduced by the physical layer.</p>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Parity Check:</strong> Adds a single bit to make the number of 1s even (or odd). Only detects single-bit errors.</li>
+              <li><strong>Checksum:</strong> Used primarily by TCP/IP. The sender adds segments using 1's complement arithmetic and sends the complement as the checksum.</li>
+              <li><strong>Cyclic Redundancy Check (CRC):</strong> A powerful polynomial division method. The generator polynomial (e.g., CRC-32) is XOR-divided against the data block. The remainder is appended as the FCS (Frame Check Sequence).</li>
+              <li><strong>Hamming Code:</strong> An error-correction code that uses redundant bits to not only detect but <em>locate</em> single-bit errors. Redundant bits `r` must satisfy `2^r >= m + r + 1` (where m is data bits).</li>
+            </ul>
+
+            <h4 class="mt-16 mb-10 text-teal">3.2 Flow Control: Sliding Window Protocols</h4>
+            <p class="mb-10">Flow control ensures a fast sender does not overwhelm a slow receiver.</p>
+            
+            <div class="container-box mb-10" style="display:flex; justify-content:center; padding:1rem; background: var(--bg-primary); border: 1px dashed var(--border-s);">
+              <!-- Sliding Window Concept SVG -->
+              <svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+                <text x="200" y="20" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="currentColor">Go-Back-N Window (Size = 4)</text>
+                
+                <!-- Frames -->
+                <g transform="translate(40, 40)">
+                  <rect x="0" y="0" width="30" height="40" fill="#cbd5e1" stroke="#94a3b8"/>
+                  <text x="15" y="25" font-family="sans-serif" font-size="12" text-anchor="middle">0</text>
+                  <rect x="35" y="0" width="30" height="40" fill="#cbd5e1" stroke="#94a3b8"/>
+                  <text x="50" y="25" font-family="sans-serif" font-size="12" text-anchor="middle">1</text>
+                  
+                  <!-- Window Area -->
+                  <rect x="65" y="-5" width="140" height="50" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="4"/>
+                  <text x="135" y="-12" font-family="sans-serif" font-size="10" fill="#f97316" text-anchor="middle">Current Window</text>
+                  
+                  <rect x="70" y="0" width="30" height="40" fill="#3b82f6" stroke="#2563eb"/>
+                  <text x="85" y="25" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle">2</text>
+                  <rect x="105" y="0" width="30" height="40" fill="#3b82f6" stroke="#2563eb"/>
+                  <text x="120" y="25" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle">3</text>
+                  <rect x="140" y="0" width="30" height="40" fill="#3b82f6" stroke="#2563eb"/>
+                  <text x="155" y="25" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle">4</text>
+                  <rect x="175" y="0" width="30" height="40" fill="#3b82f6" stroke="#2563eb"/>
+                  <text x="190" y="25" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle">5</text>
+                  
+                  <rect x="210" y="0" width="30" height="40" fill="#f1f5f9" stroke="#cbd5e1"/>
+                  <text x="225" y="25" font-family="sans-serif" font-size="12" text-anchor="middle">6</text>
+                  <rect x="245" y="0" width="30" height="40" fill="#f1f5f9" stroke="#cbd5e1"/>
+                  <text x="260" y="25" font-family="sans-serif" font-size="12" text-anchor="middle">7</text>
+                </g>
+                <text x="200" y="110" font-family="sans-serif" font-size="11" fill="currentColor" text-anchor="middle">Frames 0,1 acknowledged. Window shifted to [2,3,4,5].</text>
+              </svg>
+            </div>
+
+            <table class="data-table mb-10">
+              <thead><tr><th>Protocol</th><th>Sender Window</th><th>Receiver Window</th><th>Retransmission</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Stop-and-Wait</strong></td><td>1</td><td>1</td><td>Retransmits 1 frame upon timeout</td></tr>
+                <tr><td><strong>Go-Back-N</strong></td><td>2^m - 1</td><td>1</td><td>Retransmits the lost frame and ALL subsequent frames</td></tr>
+                <tr><td><strong>Selective Repeat</strong></td><td>2^(m-1)</td><td>2^(m-1)</td><td>Retransmits ONLY the specifically lost frame. Requires sorting.</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="mt-16 mb-10 text-teal">3.3 Multiple Access Protocols (MAC)</h4>
+            <p class="mb-10">When multiple nodes share a broadcast link, collision happens. MAC protocols coordinate access.</p>
+            <div class="callout-box callout-green mb-10">
+              <strong>ALOHA:</strong> Pure ALOHA allows transmission anytime (Max Efficiency = 18.4%). Slotted ALOHA restricts transmission to slot boundaries (Max Efficiency = 36.8%).<br><br>
+              <strong>CSMA/CD (Collision Detection):</strong> Standard for wired Ethernet (802.3). Nodes listen before talking. If a collision is detected during transmission, they immediately stop, send a JAM signal, and wait a random backoff time (Binary Exponential Backoff).<br><br>
+              <strong>CSMA/CA (Collision Avoidance):</strong> Standard for Wireless (802.11). Wireless nodes can't easily detect collisions (Hidden Node Problem). They use RTS (Request to Send) and CTS (Clear to Send) packets to reserve the channel before transmitting data.
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-orange">Unit 4 · 7 hrs</span>
+          <div class="topic-title">Network Layer & Routing Protocols</div>
+          <div class="topic-desc">IP addressing (IPv4/IPv6), Subnetting, ARP, DHCP, Routing protocols (RIP, OSPF, BGP).</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-orange">4.1 Internet Protocol (IPv4 vs IPv6)</h4>
+            <p class="mb-10">The Network layer is responsible for logical addressing and routing. IPv4 uses 32-bit addresses, divided into 5 classes (A, B, C, D, E). IPv6 uses 128-bit hexadecimal addressing to overcome IPv4 exhaustion.</p>
+            
+            <table class="data-table mb-10">
+              <thead><tr><th>Class</th><th>Leading Bits</th><th>Range</th><th>Default Subnet Mask</th></tr></thead>
+              <tbody>
+                <tr><td><strong>A</strong></td><td>0</td><td>1.0.0.0 to 126.0.0.0</td><td>255.0.0.0</td></tr>
+                <tr><td><strong>B</strong></td><td>10</td><td>128.0.0.0 to 191.255.0.0</td><td>255.255.0.0</td></tr>
+                <tr><td><strong>C</strong></td><td>110</td><td>192.0.0.0 to 223.255.255.0</td><td>255.255.255.0</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="mt-16 mb-10 text-orange">4.2 Subnetting & CIDR</h4>
+            <p class="mb-10">Subnetting borrows bits from the Host ID to create a Subnet ID. <strong>CIDR (Classless Inter-Domain Routing)</strong> replaces classes completely with a suffix (e.g., /24).</p>
+            <div class="callout-box callout-orange mb-10">
+              <strong>Subnetting Math:</strong><br>
+              Given `192.168.1.0/26`<br>
+              - Borrowed bits = 26 - 24 = 2.<br>
+              - Number of Subnets = `2^2 = 4`.<br>
+              - Host bits remaining = 32 - 26 = 6.<br>
+              - Hosts per Subnet = `2^6 - 2 = 62` (Subtracting Network & Broadcast ID).
+            </div>
+
+            <h4 class="mt-16 mb-10 text-orange">4.3 Auxiliary Protocols (ARP & DHCP)</h4>
+            <div class="container-box mb-10" style="background:var(--bg-primary); padding:1rem;">
+              <strong>DHCP DORA Process:</strong><br>
+              <ul class="bullet-list ml-24 mt-8">
+                <li><strong>Discover:</strong> Client broadcasts to find a DHCP Server.</li>
+                <li><strong>Offer:</strong> Server responds with a unicast offering an IP.</li>
+                <li><strong>Request:</strong> Client broadcasts its acceptance of the IP.</li>
+                <li><strong>Acknowledge:</strong> Server formally confirms the IP lease.</li>
+              </ul>
+              <strong>ARP (Address Resolution Protocol):</strong> Resolves logical IPv4 addresses to physical MAC addresses.
+            </div>
+
+            <h4 class="mt-16 mb-10 text-orange">4.4 Routing Protocols</h4>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>RIP (Routing Information Protocol):</strong> Distance Vector protocol using Bellman-Ford algorithm. Uses hop count (max 15). Sends entire routing table to neighbors.</li>
+              <li><strong>OSPF (Open Shortest Path First):</strong> Link State protocol using Dijkstra's algorithm. Uses cost (bandwidth). Floods neighbor status to all routers.</li>
+              <li><strong>BGP (Border Gateway Protocol):</strong> Path Vector protocol used to route traffic <em>between</em> Autonomous Systems on the internet.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-red">Unit 5 · 8 hrs</span>
+          <div class="topic-title">Transport Layer & Congestion Control</div>
+          <div class="topic-desc">Process-to-process delivery, Port Numbers, TCP 3-way handshake process, UDP features, and TCP Congestion Control algorithms.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-red">5.1 TCP vs UDP</h4>
+            <p class="mb-10">The Transport layer relies on <strong>Port Numbers</strong> (0 - 65535) for process-to-process delivery.</p>
+            <table class="data-table mb-10">
+              <thead>
+                <tr><th>Feature</th><th>TCP (Transmission Control)</th><th>UDP (User Datagram)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Paradigm</strong></td><td>Connection-oriented</td><td>Connectionless</td></tr>
+                <tr><td><strong>Reliability</strong></td><td>Highly reliable (ACKs, Checksums)</td><td>Unreliable ("best-effort")</td></tr>
+                <tr><td><strong>Speed</strong></td><td>Slower (due to overhead)</td><td>Very fast</td></tr>
+                <tr><td><strong>Use Cases</strong></td><td>HTTP, HTTPS, FTP, SMTP</td><td>VoIP, Video Streaming, DNS</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="mt-16 mb-10 text-red">5.2 TCP 3-Way Handshake</h4>
+            <p class="mb-10">Before transmitting data, TCP establishes a connection.</p>
+            <div class="container-box mb-10" style="display:flex; justify-content:center; padding:1.5rem; background: var(--bg-secondary); border: 1px dashed var(--border-s);">
+              <svg width="300" height="150" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+                <!-- Client & Server -->
+                <rect x="20" y="10" width="60" height="25" fill="#ef4444" rx="4"/>
+                <text x="50" y="27" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle">Client</text>
+                
+                <rect x="220" y="10" width="60" height="25" fill="#3b82f6" rx="4"/>
+                <text x="250" y="27" font-family="sans-serif" font-size="12" fill="#fff" text-anchor="middle">Server</text>
+                
+                <!-- Timelines -->
+                <line x1="50" y1="35" x2="50" y2="140" stroke="#94a3b8" stroke-dasharray="4"/>
+                <line x1="250" y1="35" x2="250" y2="140" stroke="#94a3b8" stroke-dasharray="4"/>
+                
+                <!-- SYN -->
+                <line x1="50" y1="50" x2="245" y2="70" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-red)"/>
+                <text x="150" y="55" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ef4444" text-anchor="middle">SYN (seq=x)</text>
+                
+                <!-- SYN-ACK -->
+                <line x1="250" y1="80" x2="55" y2="100" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+                <text x="150" y="85" font-family="sans-serif" font-size="11" font-weight="bold" fill="#3b82f6" text-anchor="middle">SYN-ACK (seq=y, ack=x+1)</text>
+                
+                <!-- ACK -->
+                <line x1="50" y1="110" x2="245" y2="130" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+                <text x="150" y="115" font-family="sans-serif" font-size="11" font-weight="bold" fill="#10b981" text-anchor="middle">ACK (ack=y+1)</text>
+                
+                <defs>
+                  <marker id="arrow-red" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ef4444"/></marker>
+                  <marker id="arrow-blue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#3b82f6"/></marker>
+                  <marker id="arrow-green" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#10b981"/></marker>
+                </defs>
+              </svg>
+            </div>
+
+            <h4 class="mt-16 mb-10 text-red">5.3 TCP Congestion Control</h4>
+            <p class="mb-10">To prevent the network from collapsing, TCP controls the transmission window size `cwnd`.</p>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Slow Start:</strong> The `cwnd` starts at 1 MSS (Maximum Segment Size) and grows exponentially (doubles every RTT).</li>
+              <li><strong>Congestion Avoidance:</strong> Once `cwnd` reaches a threshold (`ssthresh`), the window grows linearly (adds 1 MSS per RTT) to probe for bandwidth carefully.</li>
+              <li><strong>Congestion Detection (Timeout):</strong> If a timeout occurs, severe congestion is assumed. `ssthresh` is halved, and `cwnd` is reset back to 1. Slow start begins again.</li>
+              <li><strong>Fast Recovery:</strong> If 3 duplicate ACKs are received, moderate congestion is assumed. `ssthresh` is halved, `cwnd` is set to the new `ssthresh`, and linear growth begins (skips slow start).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-purple">Unit 6 · 7 hrs</span>
+          <div class="topic-title">Application Layer & Network Security</div>
+          <div class="topic-desc">DNS, TELNET, EMAIL (SMTP/POP3/IMAP), FTP, HTTP, SNMP, Bluetooth, Firewalls, and Cryptography.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-purple">6.1 Core Internet Protocols</h4>
+            <p class="mb-10">The Application layer provides network services directly to end-user applications.</p>
+            <div class="callout-box callout-purple mb-10">
+              <strong>Domain Name System (DNS):</strong> Acts as the phonebook of the internet. Resolves human-readable domain names (www.google.com) to IP addresses. Operates over UDP Port 53 for queries, TCP Port 53 for zone transfers.<br><br>
+              <strong>HTTP / HTTPS:</strong> Hypertext Transfer Protocol. Stateless protocol running over TCP Port 80. HTTPS (Port 443) uses TLS/SSL to encrypt traffic.<br><br>
+              <strong>FTP (File Transfer Protocol):</strong> Uses two ports. Port 21 for Control (commands) and Port 20 for Data transfer. Active and Passive modes exist.
+            </div>
+
+            <h4 class="mt-16 mb-10 text-purple">6.2 Electronic Mail Architecture</h4>
+            <p class="mb-10">Email relies on a combination of push and pull protocols.</p>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>SMTP (Port 25/587):</strong> Simple Mail Transfer Protocol. A Push protocol used to <em>send</em> emails from a client to a server, or between servers.</li>
+              <li><strong>IMAP (Port 143/993):</strong> Internet Message Access Protocol. A Pull protocol used to <em>read</em> emails, syncing read state and folders across multiple devices.</li>
+              <li><strong>POP3 (Port 110/995):</strong> Post Office Protocol. A Pull protocol used to download emails to a local device, traditionally deleting them from the server afterward.</li>
+            </ul>
+
+            <h4 class="mt-16 mb-10 text-purple">6.3 Network Security & Cryptography</h4>
+            <p class="mb-10">Security goals are often defined by the <strong>CIA Triad</strong>: Confidentiality, Integrity, and Availability.</p>
+            <div class="container-box mb-10" style="background:var(--bg-primary); padding:1rem;">
+              <strong>Symmetric vs Asymmetric Key Cryptography:</strong><br>
+              <ul class="bullet-list ml-24 mt-8">
+                <li><strong>Symmetric Key:</strong> The same key is used for both encryption and decryption (e.g., DES, AES). Very fast, but key distribution is challenging.</li>
+                <li><strong>Asymmetric Key (Public Key):</strong> Uses a pair of keys: a Public Key (shared) and a Private Key (secret). E.g., RSA. If Alice wants to send a secret to Bob, she encrypts it with Bob's Public Key. Only Bob's Private Key can decrypt it.</li>
+              </ul>
+              <strong>Firewalls:</strong> Hardware or software that inspects incoming and outgoing traffic based on rules. <em>Packet Filtering Firewalls</em> inspect Layer 3/4 headers. <em>Application Gateways (Proxies)</em> inspect Layer 7 payload.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="viz-section interactive-card plain-bg">
+        <div class="viz-title">Interactive: Sliding Window Efficiency Calculator</div>
+        <div class="form-row">
+          <div>
+            <label for="swProtocol">Protocol</label>
+            <select id="swProtocol" onchange="calcSW()">
+              <option value="saw">Stop-and-Wait ARQ</option>
+              <option value="gbn">Go-Back-N ARQ</option>
+              <option value="sr">Selective Repeat ARQ</option>
+            </select>
+          </div>
+          <div>
+            <label for="swN">Window Size (n bits for seq no.)</label>
+            <input type="number" id="swN" value="3" min="1" max="8" oninput="calcSW()">
+          </div>
+        </div>
+        <div class="form-group-spaced">
+          <label>Propagation delay ratio (a = Tp/Tt): <span id="aVal">5</span></label>
+          <input type="range" id="swA" min="1" max="50" value="5" oninput="document.getElementById('aVal').textContent=this.value;calcSW()">
+        </div>
+        <div class="metric-grid mt-10">
+          <div class="metric-card"><div class="metric-val" id="effOut">—</div><div class="metric-lbl">Efficiency %</div></div>
+          <div class="metric-card"><div class="metric-val" id="wsOut">—</div><div class="metric-lbl">Window Size</div></div>
+          <div class="metric-card"><div class="metric-val" id="maxWOut">—</div><div class="metric-lbl">Max Window</div></div>
+        </div>
+        <div class="result-box display-none" id="swResult">
+          <div class="result-title" id="swResTitle"></div>
+          <div class="result-desc" id="swResDesc"></div>
+        </div>
+      </div>
+
+      <div class="ref-grid">
+        <div class="ref-card"><div class="ref-num">1</div><div><div class="ref-title">Data Communication and Networking</div><div class="ref-author">Behrouz A. Forouzan · 4th Ed · McGraw-Hill</div></div></div>
+        <div class="ref-card"><div class="ref-num">2</div><div><div class="ref-title">Data and Computer Communication</div><div class="ref-author">William Stallings · 8th Ed · Pearson</div></div></div>
+        <div class="ref-card"><div class="ref-num">3</div><div><div class="ref-title">Computer Networks</div><div class="ref-author">Andrew S. Tanenbaum · 8th Ed · Pearson</div></div></div>
+        <div class="ref-card"><div class="ref-num">4</div><div><div class="ref-title">Internetworking with TCP/IP</div><div class="ref-author">Douglas Comer · Vol 1, 6th Ed · Prentice Hall</div></div></div>
+      </div>
+
+      <div class="viz-section interactive-card plain-bg mt-32">
+        <div class="viz-title">Interactive: Advanced Subnet Calculator</div>
+        <div class="viz-sub">Calculate Network Address, Broadcast Address, Usable Host Range, and Subnet Mask.</div>
+        <div class="form-row mt-16">
+          <div>
+            <label for="ipInput">IP Address</label>
+            <input type="text" id="ipInput" placeholder="e.g. 192.168.1.10" value="192.168.1.10" class="input-styled">
+          </div>
+          <div>
+            <label for="cidrInput">CIDR Notation (e.g. 24)</label>
+            <input type="number" id="cidrInput" placeholder="24" value="24" min="1" max="32" class="input-styled">
+          </div>
+        </div>
+        <button onclick="calculateSubnet()" class="btn mt-16 font-weight-600">Calculate Subnet</button>
+        <div class="result-box display-none mt-16" id="subnetResult">
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-val font-size-14" id="resNetID">—</div><div class="metric-lbl">Network ID</div></div>
+            <div class="metric-card"><div class="metric-val font-size-14" id="resBroad">—</div><div class="metric-lbl">Broadcast IP</div></div>
+            <div class="metric-card"><div class="metric-val font-size-14" id="resMask">—</div><div class="metric-lbl">Subnet Mask</div></div>
+            <div class="metric-card"><div class="metric-val font-size-14" id="resHosts">—</div><div class="metric-lbl">Usable Hosts</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="viz-section mt-32">
+        <div class="viz-title">Routing Protocols Deep Dive</div>
+        <div class="split-grid mt-16">
+          <div class="blue-card branded-card">
+            <h4>Distance Vector Routing (RIP)</h4>
+            <ul class="bullet-list">
+              <li>Uses <strong>Bellman-Ford Algorithm</strong>.</li>
+              <li>Routers share their entire routing table with neighbors only.</li>
+              <li>Suffers from <strong>Count-to-Infinity</strong> problem.</li>
+              <li>Solution: Split Horizon, Route Poisoning, Hold-down timers.</li>
+              <li>Metric: Hop Count (Max 15 hops).</li>
+            </ul>
+          </div>
+          <div class="orange-card branded-card">
+            <h4>Link State Routing (OSPF)</h4>
+            <ul class="bullet-list">
+              <li>Uses <strong>Dijkstra's Algorithm</strong> for Shortest Path.</li>
+              <li>Routers share information about their direct neighbors with the entire network via Flooding.</li>
+              <li>Every router builds a complete topological map of the network.</li>
+              <li>Metric: Cost (Bandwidth-based). Faster convergence than RIP.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="viz-section mt-32">
+        <div class="viz-title">Computer Networks Comprehensive Glossary</div>
+        <div class="glossary-grid mt-16">
+          <div class="glossary-item"><strong>ARP:</strong> Address Resolution Protocol. Maps IP to MAC.</div>
+          <div class="glossary-item"><strong>BGP:</strong> Border Gateway Protocol. Path-vector protocol for inter-AS routing.</div>
+          <div class="glossary-item"><strong>CSMA/CD:</strong> Carrier Sense Multiple Access with Collision Detection. Ethernet standard.</div>
+          <div class="glossary-item"><strong>DHCP:</strong> Dynamic Host Configuration Protocol. Automates IP assignment.</div>
+          <div class="glossary-item"><strong>DNS:</strong> Domain Name System. Translates domain names to IPs.</div>
+          <div class="glossary-item"><strong>ICMP:</strong> Internet Control Message Protocol. Used for error reporting (e.g. Ping).</div>
+          <div class="glossary-item"><strong>NAT:</strong> Network Address Translation. Maps private IPs to public IPs.</div>
+          <div class="glossary-item"><strong>VLAN:</strong> Virtual LAN. Logically separates broadcast domains.</div>
+          <div class="glossary-item"><strong>MAC:</strong> Media Access Control. 48-bit physical address.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="unit-panel" id="panel-1">
+      <div class="viz-section">
+        <div class="viz-title">Compiler Phases — Pipeline</div>
+        <p class="viz-sub">A compiler translates high-level source code to machine code through a series of well-defined phases. Each phase transforms the program representation.</p>
+        <div class="flow-row">
+          <div class="flow-step blue-card"><div class="flow-num flow-blue-bg">1</div><div class="flow-name">Source Code</div></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step flow-step-highlight"><div class="flow-num">2</div><div class="flow-name">Lexical Analysis</div></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step purple-card"><div class="flow-num flow-purple-bg">3</div><div class="flow-name">Syntax Analysis</div></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step teal-card"><div class="flow-num flow-teal-bg">4</div><div class="flow-name">Semantic Analysis</div></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step orange-card"><div class="flow-num flow-orange-bg">5</div><div class="flow-name">IR Generation</div></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step green-card"><div class="flow-num flow-green-bg">6</div><div class="flow-name">Optimization</div></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step red-card"><div class="flow-num flow-red-bg">7</div><div class="flow-name">Code Gen</div></div>
+        </div>
+      </div>
+
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="topic-tag tag-accent">Unit 1 · 7 hrs</span>
+          <div class="topic-title">Lexical Analysis & Automata</div>
+          <div class="topic-desc">Regular languages, finite automata (DFA/NFA), RE→FA conversion algorithms, Thompson's Construction, Subset Construction.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-blue">1.1 Role of Lexical Analyzer (Scanner)</h4>
+            <p class="mb-10">The first phase of a compiler. It reads the source code character by character, strips out whitespace and comments, and groups characters into meaningful sequences called <strong>Tokens</strong>.</p>
+            <div class="callout-box callout-accent mb-10">
+              <strong>Terminology:</strong><br>
+              <ul class="bullet-list ml-24">
+                <li><strong>Token:</strong> An abstract category representing a unit of syntax (e.g., `id`, `num`, `keyword_if`).</li>
+                <li><strong>Lexeme:</strong> The actual sequence of characters matching a token (e.g., `count`, `42`, `if`).</li>
+                <li><strong>Pattern:</strong> The rule (defined via Regular Expressions) describing how a token is formed.</li>
+              </ul>
+            </div>
+            
+            <h4 class="mt-16 mb-10 text-blue">1.2 Finite Automata (FA)</h4>
+            <p class="mb-10">Regular Expressions are implemented using Finite Automata. <strong>NFA (Nondeterministic FA)</strong> allows multiple transitions for the same symbol and `&epsilon;` (empty) transitions. <strong>DFA (Deterministic FA)</strong> allows exactly one transition per symbol.</p>
+
+            <div class="container-box mb-10" style="display:flex; justify-content:center; padding:1.5rem; background: var(--bg-secondary); border: 1px dashed var(--border-s);">
+              <!-- SVG for DFA accepting string ending in "ab" -->
+              <svg width="400" height="150" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                <text x="200" y="20" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="currentColor">DFA accepting string ending in 'ab'</text>
+                
+                <g transform="translate(60, 80)">
+                  <!-- Start arrow -->
+                  <line x1="-35" y1="0" x2="-20" y2="0" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+                  
+                  <!-- State q0 -->
+                  <circle cx="0" cy="0" r="18" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                  <text x="0" y="4" font-family="sans-serif" font-size="12" text-anchor="middle" fill="currentColor">q0</text>
+                  <!-- Loop 'b' on q0 -->
+                  <path d="M-10,-15 A 15 15 0 1 1 10,-15" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+                  <text x="0" y="-35" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#3b82f6">b</text>
+
+                  <!-- q0 to q1 -->
+                  <path d="M18,0 Q 60,-30 102,0" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+                  <text x="60" y="-20" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#3b82f6">a</text>
+
+                  <!-- State q1 -->
+                  <circle cx="120" cy="0" r="18" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                  <text x="120" y="4" font-family="sans-serif" font-size="12" text-anchor="middle" fill="currentColor">q1</text>
+                  <!-- Loop 'a' on q1 -->
+                  <path d="M110,-15 A 15 15 0 1 1 130,-15" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+                  <text x="120" y="-35" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#3b82f6">a</text>
+
+                  <!-- q1 to q2 -->
+                  <line x1="138" y1="0" x2="222" y2="0" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+                  <text x="180" y="-8" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#3b82f6">b</text>
+
+                  <!-- State q2 (Final) -->
+                  <circle cx="240" cy="0" r="18" fill="none" stroke="#10b981" stroke-width="2"/>
+                  <circle cx="240" cy="0" r="14" fill="none" stroke="#10b981" stroke-width="2"/>
+                  <text x="240" y="4" font-family="sans-serif" font-size="12" text-anchor="middle" fill="currentColor">q2</text>
+
+                  <!-- q2 back to q0 (on b) -->
+                  <path d="M225,10 Q 112,60 5,15" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+                  <text x="115" y="45" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#3b82f6">b</text>
+
+                  <!-- q2 back to q1 (on a) -->
+                  <path d="M222,-5 Q 180,-30 138,-5" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+                  <text x="180" y="-22" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#3b82f6">a</text>
+                </g>
+              </svg>
+            </div>
+
+            <h4 class="mt-16 mb-10 text-blue">1.3 Automata Conversion pipeline</h4>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Thompson's Construction (RE &rarr; NFA):</strong> Systematically builds an NFA from a Regular Expression using simple templates for union (`|`), concatenation, and Kleene closure (`*`). Generates many `&epsilon;` transitions.</li>
+              <li><strong>Subset Construction (NFA &rarr; DFA):</strong> Converts NFA to DFA. Each state in the DFA represents a <em>set</em> of states in the NFA (the epsilon-closure). Worst-case complexity is exponential `O(2^N)`.</li>
+              <li><strong>DFA Minimization (Hopcroft's Algorithm):</strong> Partitions DFA states into equivalent classes based on distinguishable behaviors. Reduces the automaton to its minimal state representation.</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="topic-card">
+          <span class="topic-tag tag-purple">Unit 2 · 9 hrs</span>
+          <div class="topic-title">Syntax Analysis & Parsing Algorithms</div>
+          <div class="topic-desc">Context-Free Grammars (CFGs), Top-down parsers (LL(1)), Bottom-up parsers (LR(0), SLR, LALR, CLR), Ambiguity.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-purple">2.1 Context-Free Grammars (CFG)</h4>
+            <p class="mb-10">A parser receives tokens and determines if they form a valid syntax tree. A CFG is defined as `G = (V, T, P, S)` where V=Variables, T=Terminals, P=Productions, S=Start Symbol.</p>
+            
+            <div class="callout-box callout-purple mb-10">
+              <strong>Grammar Transformations:</strong><br>
+              <ul class="bullet-list ml-24">
+                <li><strong>Left Recursion Removal:</strong> A production `A &rarr; A&alpha; | &beta;` causes infinite loops in top-down parsers. Convert to right recursion: `A &rarr; &beta;A'` and `A' &rarr; &alpha;A' | &epsilon;`.</li>
+                <li><strong>Left Factoring:</strong> Resolves FIRST set collisions `A &rarr; &alpha;&beta;1 | &alpha;&beta;2`. Transformed to `A &rarr; &alpha;A'` and `A' &rarr; &beta;1 | &beta;2`.</li>
+              </ul>
+            </div>
+
+            <h4 class="mt-16 mb-10 text-purple">2.2 Top-Down vs Bottom-Up Parsing</h4>
+            <p class="mb-10">Top-Down parsing builds the parse tree from the root (Start symbol) to leaves. Bottom-up parsing builds it from leaves to the root via Shift and Reduce operations.</p>
+            
+            <table class="data-table mb-10">
+              <thead>
+                <tr><th>Parser Type</th><th>Class</th><th>Power & Complexity</th><th>Key Logic</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>LL(1)</strong></td><td>Top-Down</td><td>Low Power. No Left Recursion allowed.</td><td>Predictive parsing using FIRST() and FOLLOW() sets. Needs Left Factoring.</td></tr>
+                <tr><td><strong>LR(0)</strong></td><td>Bottom-Up</td><td>Very Basic. Suffers from Shift/Reduce conflicts.</td><td>Uses automaton of LR(0) items (`A &rarr; &alpha; . &beta;`).</td></tr>
+                <tr><td><strong>SLR(1)</strong></td><td>Bottom-Up</td><td>Medium Power. Solves basic conflicts.</td><td>Only reduces `A &rarr; &alpha; .` if the lookahead token is in FOLLOW(A).</td></tr>
+                <tr><td><strong>LALR(1)</strong></td><td>Bottom-Up</td><td>High Power. Industry Standard (YACC/Bison).</td><td>Merges LR(1) states that have the same core, drastically reducing state count while maintaining power.</td></tr>
+                <tr><td><strong>CLR(1)</strong></td><td>Bottom-Up</td><td>Maximum Power.</td><td>Canonical LR(1). Uses exact lookahead items (`A &rarr; &alpha; . &beta;, c`). Generates massive parsing tables.</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="mt-16 mb-10 text-purple">2.3 Ambiguity and Dangling-Else</h4>
+            <p class="mb-10">A grammar is <strong>Ambiguous</strong> if it can produce more than one Leftmost Derivation (or Parse Tree) for the same string.</p>
+            <div class="container-box mb-10" style="background:var(--bg-primary); padding:1rem;">
+              <strong>The Dangling-Else Problem:</strong><br>
+              Given `if E1 then if E2 then S1 else S2`. To which `if` does the `else` belong?<br>
+              <em>Solution:</em> The standard rule in most programming languages is to match an `else` with the closest unmatched `if`.
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-teal">Unit 3 · 8 hrs</span>
+          <div class="topic-title">Semantic Analysis & Type Checking</div>
+          <div class="topic-desc">Syntax-Directed Translation (SDT), Attribute grammars, symbol table management, and runtime environments.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-teal">3.1 Role of Semantic Analyzer</h4>
+            <p class="mb-10">While the Syntax Analyzer ensures the code structure is correct, the Semantic Analyzer ensures it makes logical sense (e.g., verifying a variable is declared before use, or ensuring `int + float` is handled correctly via type coercion).</p>
+            
+            <h4 class="mt-16 mb-10 text-teal">3.2 Syntax-Directed Translation (SDT)</h4>
+            <p class="mb-10">SDT attaches semantic rules to the productions of a Context-Free Grammar. It uses <strong>Attributes</strong> to pass values up and down the parse tree.</p>
+            <table class="data-table mb-10">
+              <thead><tr><th>Attribute Type</th><th>Computation Direction</th><th>Grammar Class</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Synthesized</strong></td><td>Computed from Children &rarr; Parent</td><td>S-Attributed (Evaluated Bottom-Up)</td></tr>
+                <tr><td><strong>Inherited</strong></td><td>Computed from Parent/Siblings &rarr; Node</td><td>L-Attributed (Evaluated Top-Down, Left-to-Right)</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="mt-16 mb-10 text-teal">3.3 The Symbol Table</h4>
+            <div class="container-box mb-10" style="background:var(--bg-primary); padding:1rem;">
+              <strong>Symbol Table Management:</strong><br>
+              A crucial data structure maintained across all compiler phases. It stores metadata about identifiers (Type, Scope, Memory Location, Array Dimensions).<br><br>
+              <em>Implementation:</em> Usually implemented using a <strong>Hash Table</strong> for O(1) average lookup time. Scope is often handled using a stack of hash tables (one table per scope block).
+            </div>
+            
+            <h4 class="mt-16 mb-10 text-teal">3.4 Activation Records</h4>
+            <p class="mb-10">During execution, the Runtime Environment allocates an <strong>Activation Record (Stack Frame)</strong> for every function call. It stores local variables, return addresses, static links, and saved machine status.</p>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-orange">Unit 4 · 7 hrs</span>
+          <div class="topic-title">Intermediate Code & Optimization</div>
+          <div class="topic-desc">Three-Address Code (TAC), Control-flow analysis, DAGs, and Machine-Independent Optimisations.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-orange">4.1 Three-Address Code (TAC)</h4>
+            <p class="mb-10">TAC is an abstract, machine-independent representation. Each instruction has at most one operator and three operands. It is represented in memory using arrays of <strong>Quadruples</strong> (op, arg1, arg2, result) or <strong>Triples</strong>.</p>
+            
+            <div class="callout-box callout-orange mb-10">
+              <strong>Source:</strong> <code>a = b * -c + b * -c</code><br>
+              <strong>TAC representation:</strong><br>
+              <code>t1 = -c</code><br>
+              <code>t2 = b * t1</code><br>
+              <code>t3 = -c</code><br>
+              <code>t4 = b * t3</code><br>
+              <code>t5 = t2 + t4</code><br>
+              <code>a = t5</code>
+            </div>
+
+            <h4 class="mt-16 mb-10 text-orange">4.2 Machine-Independent Optimizations</h4>
+            <p class="mb-10">These optimizations improve code efficiency without caring about the underlying CPU architecture.</p>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Constant Folding:</strong> Evaluating expressions with constants at compile time. <code>x = 2 * 3.14</code> &rarr; <code>x = 6.28</code>.</li>
+              <li><strong>Constant Propagation:</strong> Substituting the value of a constant variable wherever it is used.</li>
+              <li><strong>Dead Code Elimination:</strong> Removing unreachable code (e.g., code after a <code>return</code> statement) or variables that are never read.</li>
+              <li><strong>Common Subexpression Elimination:</strong> If <code>x = a * b</code> and later <code>y = a * b</code>, the compiler reuses `x`. Implemented efficiently using <strong>Directed Acyclic Graphs (DAGs)</strong>.</li>
+            </ul>
+
+            <h4 class="mt-16 mb-10 text-orange">4.3 Loop Optimizations</h4>
+            <p class="mb-10">Loops consume the most execution time, so optimizing them is highly effective.</p>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Code Motion:</strong> Moving loop-invariant computations outside the loop body.</li>
+              <li><strong>Strength Reduction:</strong> Replacing expensive operations (multiplication) with cheaper ones (addition) inside loops.</li>
+              <li><strong>Loop Unrolling:</strong> Replicating the loop body to reduce the branch-checking overhead.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-red">Unit 5 · 4 hrs</span>
+          <div class="topic-title">Architecture-Dependent Optimisation</div>
+          <div class="topic-desc">Instruction scheduling for pipelines, cache optimization, and register allocation (graph coloring).</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-red">5.1 Target Machine Code Generation</h4>
+            <p class="mb-10">The final phase maps Intermediate Code to specific CPU Assembly instructions. It involves instruction selection, register allocation, and instruction scheduling.</p>
+            
+            <div class="container-box mb-10" style="background:var(--bg-primary); padding:1rem;">
+              <strong>Register Allocation via Graph Coloring:</strong><br>
+              Registers are the fastest and most scarce memory in a CPU. Variables are represented as nodes in an Interference Graph. If two variables are "live" at the same time, an edge connects them. The graph is colored using <code>k</code> colors (where k = number of CPU registers). If a node cannot be colored, we must <em>Spill</em> the variable into RAM (stack memory), which adds slow load/store instructions.
+            </div>
+
+            <h4 class="mt-16 mb-10 text-red">5.2 Peephole Optimization</h4>
+            <p class="mb-10">A simple, localized optimization technique performed on the final target code.</p>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Redundant Load/Store Elimination:</strong> Removing `STORE R0, a` followed immediately by `LOAD a, R0`.</li>
+              <li><strong>Unreachable Code:</strong> Removing jumps to the next line.</li>
+              <li><strong>Algebraic Simplifications:</strong> Replacing `ADD R0, #0` with nothing.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-slate">Unit 6 · 7 hrs</span>
+          <div class="topic-title">Advanced Compilation Topics</div>
+          <div class="topic-desc">OOP compilation, Virtual Tables, Garbage Collection, and Tail-Call Optimization.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-slate">6.1 Object-Oriented Compilation</h4>
+            <p class="mb-10">Modern OOP languages require dynamic dispatch for polymorphism.</p>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Virtual Tables (v-tables):</strong> Every class with virtual methods gets an array of function pointers. Every object instance has a hidden pointer (`vptr`) pointing to its class's v-table. At runtime, the method is resolved via `obj->vptr[method_offset]()`.</li>
+              <li><strong>Name Mangling:</strong> To support function overloading, compilers rename functions internally by appending type information to the function name (e.g., `_Z3addii` for `add(int, int)`).</li>
+            </ul>
+
+            <h4 class="mt-16 mb-10 text-slate">6.2 Automated Memory Management</h4>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Reference Counting:</strong> Each object tracks how many pointers refer to it. Frees memory when count hits 0. Suffers from cyclic references.</li>
+              <li><strong>Mark-and-Sweep:</strong> Halts execution, starts from root pointers, marks reachable objects, and sweeps away unmarked ones. Fixes cyclic references.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="viz-section">
+        <div class="viz-title">Parser Types Comparison</div>
+        <table class="data-table">
+          <thead><tr><th>Parser</th><th>Type</th><th>Power</th><th>Table Size</th><th>Tool</th></tr></thead>
+          <tbody>
+            <tr><td><strong>LL(1)</strong></td><td>Top-down</td><td>Weakest</td><td>Small</td><td>Recursive Descent</td></tr>
+            <tr><td><strong>LR(0)</strong></td><td>Bottom-up</td><td>Limited</td><td>Small</td><td>–</td></tr>
+            <tr><td><strong>SLR(1)</strong></td><td>Bottom-up</td><td>Moderate</td><td>Compact</td><td>–</td></tr>
+            <tr><td><strong>LALR(1)</strong></td><td>Bottom-up</td><td>Strong</td><td>Compact</td><td>yacc / bison</td></tr>
+            <tr><td><strong>LR(1)</strong></td><td>Bottom-up</td><td>Strongest</td><td>Very Large</td><td>–</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ref-grid">
+        <div class="ref-card"><div class="ref-num">1</div><div><div class="ref-title">Compilers: Principles, Techniques & Tools</div><div class="ref-author">Aho, Sethi, Ullman (Dragon Book) · Pearson</div></div></div>
+        <div class="ref-card"><div class="ref-num">2</div><div><div class="ref-title">Compiler Design</div><div class="ref-author">Santanu Chattopadhyay · PHI</div></div></div>
+        <div class="ref-card"><div class="ref-num">3</div><div><div class="ref-title">Modern Compiler Design</div><div class="ref-author">Grune, Bal, Jacobs, Langendoen · Wiley</div></div></div>
+      </div>
+
+      <div class="viz-section interactive-card plain-bg mt-32">
+        <div class="viz-title">Interactive: LL(1) Parsing Table Simulator</div>
+        <div class="viz-sub">Enter FIRST and FOLLOW sets to generate the parsing table row (Mock Demo).</div>
+        <div class="form-row mt-16">
+          <div>
+            <label for="ntInput">Non-Terminal</label>
+            <input type="text" id="ntInput" placeholder="E" value="E" class="input-styled">
+          </div>
+          <div>
+            <label for="firstInput">FIRST() set</label>
+            <input type="text" id="firstInput" placeholder="(, id" value="(, id" class="input-styled">
+          </div>
+          <div>
+            <label for="followInput">FOLLOW() set</label>
+            <input type="text" id="followInput" placeholder="), $" value="), $" class="input-styled">
+          </div>
+        </div>
+        <button onclick="generateParsingTable()" class="btn mt-16 font-weight-600">Generate LL(1) Row</button>
+        <div class="result-box display-none mt-16 overflow-x-auto" id="parseTableResult">
+          <table class="data-table font-mono">
+            <thead>
+              <tr class="bb-2"><th>Non-Terminal</th><th>id</th><th>(</th><th>)</th><th>$</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="pt-row-title" id="ptRowNT">E</td>
+                <td id="ptRowId">—</td>
+                <td id="ptRowOpen">—</td>
+                <td id="ptRowClose">—</td>
+                <td id="ptRowEof">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="viz-section mt-32">
+        <div class="viz-title">Regex to NFA Conversions (Thompson's Construction)</div>
+        <div class="three-col-grid mt-16">
+          <div class="blue-card node-diagram-card">
+            <h4 class="mb-16">Concatenation (AB)</h4>
+            <div class="node-row">
+              <div class="circle-node">0</div>
+              <span>→ A →</span>
+              <div class="circle-node">1</div>
+              <span>→ B →</span>
+              <div class="double-circle-node">2</div>
+            </div>
+          </div>
+          <div class="purple-card node-diagram-card">
+            <h4 class="mb-16">Union (A | B)</h4>
+            <div class="stacked-node-text">
+              <div>ε ↗ (A) ↘ ε</div>
+              <div>Start → (0) ➔ (End)</div>
+              <div>ε ↘ (B) ↗ ε</div>
+            </div>
+          </div>
+          <div class="teal-card node-diagram-card">
+            <h4 class="mb-16">Kleene Star (A*)</h4>
+            <div class="stacked-node-text">
+              <div>↺ A (Loop)</div>
+              <div>Start → ε → (0) → ε → (End)</div>
+              <div>Bypass ε</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="viz-section mt-32">
+        <div class="viz-title">Compiler Design Comprehensive Glossary</div>
+        <div class="glossary-grid mt-16">
+          <div class="glossary-item"><strong>AST:</strong> Abstract Syntax Tree. Removes unnecessary syntactic details from Parse Tree.</div>
+          <div class="glossary-item"><strong>CFG:</strong> Context Free Grammar. Used to specify the syntax of a language.</div>
+          <div class="glossary-item"><strong>DFA/NFA:</strong> Deterministic/Non-Deterministic Finite Automata. Recognizes regular languages.</div>
+          <div class="glossary-item"><strong>FIRST Set:</strong> Set of terminals that begin strings derived from a non-terminal.</div>
+          <div class="glossary-item"><strong>FOLLOW Set:</strong> Set of terminals that can appear immediately to the right of a non-terminal.</div>
+          <div class="glossary-item"><strong>Left Recursion:</strong> A → Aα | β. Causes infinite loops in top-down parsers. Must be eliminated.</div>
+          <div class="glossary-item"><strong>Left Factoring:</strong> Removing common prefixes in productions (A → αβ | αγ) for LL parsers.</div>
+          <div class="glossary-item"><strong>Peephole Optimization:</strong> Local optimization technique examining a sliding window of instructions.</div>
+          <div class="glossary-item"><strong>YACC:</strong> Yet Another Compiler-Compiler. Generates LALR(1) parsers.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="unit-panel" id="panel-2">
+      <div class="viz-section">
+        <div class="viz-title">ML Algorithm Landscape</div>
+        <div class="ml-vis">
+          <div class="ml-card">
+            <div class="ml-card-title text-blue">🎯 Supervised Learning</div>
+            <div class="ml-algo-list">
+              <div class="topic-card" style="padding: 10px; margin-bottom: 8px;">
+                <div class="topic-title font-size-14" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="const d = this.parentElement.querySelector('.expand-detail'); const b = this.querySelector('.expand-btn'); d.classList.toggle('open'); b.classList.toggle('expanded');">
+                  <span><div class="ml-dot bg-blue-mid" style="display:inline-block; margin-right:6px;"></div>Linear / Logistic Regression</span>
+                  <button class="expand-btn" style="padding:0; margin:0;"><i class="ti ti-chevron-down"></i></button>
+                </div>
+                <div class="expand-detail">
+                  <div class="mt-8 font-size-12 text-muted"><strong>Definition:</strong> 
+                    <br>• <em>Linear Regression:</em> Models a linear relationship between features and a continuous target.
+                    <br>• <em>Logistic Regression:</em> Predicts probability of a binary output squashed between 0 and 1.
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Theory:</strong> Linear regression fits a straight line to minimize squared error. Logistic regression uses maximum likelihood estimation to fit a sigmoid probability curve.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Formula:</strong> 
+                    <div class="formula-block">Linear:  Y = β₀ + β₁X₁ + ... + βₙXₙ + ε
+Logistic: P(Y=1|X) = σ(z) = 1 / (1 + e⁻ᶻ)
+where z = β₀ + β₁X₁ + ... + βₙXₙ</div>
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Example:</strong> Predicting house prices based on size (Linear) or classifying an email as Spam/Not Spam (Logistic).</div>
+                  <div class="mt-10" style="height: 60px; border-left: 1px solid var(--border-s); border-bottom: 1px solid var(--border-s); position: relative; margin-left: 10px;">
+                    <div style="position: absolute; width: 100%; height: 2px; background: #3b82f6; transform: rotate(-15deg); transform-origin: left bottom; bottom: 0;"></div>
+                    <div style="position:absolute; width:6px; height:6px; background:#ef4444; border-radius:50%; bottom: 15%; left: 20%;"></div>
+                    <div style="position:absolute; width:6px; height:6px; background:#ef4444; border-radius:50%; bottom: 35%; left: 40%;"></div>
+                    <div style="position:absolute; width:6px; height:6px; background:#ef4444; border-radius:50%; bottom: 25%; left: 60%;"></div>
+                    <div style="position:absolute; width:6px; height:6px; background:#ef4444; border-radius:50%; bottom: 45%; left: 80%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="topic-card" style="padding: 10px; margin-bottom: 8px;">
+                <div class="topic-title font-size-14" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="const d = this.parentElement.querySelector('.expand-detail'); const b = this.querySelector('.expand-btn'); d.classList.toggle('open'); b.classList.toggle('expanded');">
+                  <span><div class="ml-dot bg-blue-light" style="display:inline-block; margin-right:6px;"></div>Support Vector Machines (SVM)</span>
+                  <button class="expand-btn" style="padding:0; margin:0;"><i class="ti ti-chevron-down"></i></button>
+                </div>
+                <div class="expand-detail">
+                  <div class="mt-8 font-size-12 text-muted"><strong>Definition:</strong> A classification/regression model that maps inputs into space and finds a boundary hyperplane with the maximum margin between classes.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Theory:</strong> Optimization of the hyperplane boundary parameters. Uses mathematical Kernel functions (the Kernel Trick) to project non-linear boundaries into higher dimensions.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Formula:</strong> 
+                    <div class="formula-block">Hyperplane: wᵀx + b = 0
+Optimization: min_w,b (1/2)||w||² s.t. yᵢ(wᵀxᵢ + b) ≥ 1
+RBF Kernel: K(x_i, x_j) = exp(-γ||x_i - x_j||²)</div>
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Example:</strong> Image classification, facial recognition, or medical diagnostics.</div>
+                  <div class="mt-10" style="height: 60px; border-left: 1px solid var(--border-s); border-bottom: 1px solid var(--border-s); position: relative; margin-left: 10px;">
+                    <div style="position: absolute; width: 100%; height: 2px; background: #e67e00; transform: rotate(-25deg); transform-origin: left bottom; bottom: 20%;"></div>
+                    <div style="position: absolute; width: 100%; height: 1px; border-top: 1px dashed #e67e00; transform: rotate(-25deg); transform-origin: left bottom; bottom: 40%;"></div>
+                    <div style="position: absolute; width: 100%; height: 1px; border-top: 1px dashed #e67e00; transform: rotate(-25deg); transform-origin: left bottom; bottom: 0%;"></div>
+                    <div style="position:absolute; width:6px; height:6px; background:#ef4444; border-radius:50%; bottom: 60%; left: 20%;"></div>
+                    <div style="position:absolute; width:6px; height:6px; background:#3b82f6; border-radius:50%; bottom: 10%; left: 50%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="topic-card" style="padding: 10px; margin-bottom: 8px;">
+                <div class="topic-title font-size-14" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="const d = this.parentElement.querySelector('.expand-detail'); const b = this.querySelector('.expand-btn'); d.classList.toggle('open'); b.classList.toggle('expanded');">
+                  <span><div class="ml-dot bg-blue-sky" style="display:inline-block; margin-right:6px;"></div>Decision Trees</span>
+                  <button class="expand-btn" style="padding:0; margin:0;"><i class="ti ti-chevron-down"></i></button>
+                </div>
+                <div class="expand-detail">
+                  <div class="mt-8 font-size-12 text-muted"><strong>Definition:</strong> A non-parametric supervised model that splits dataset features recursively into subsets based on decisions to maximize information purity.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Theory:</strong> Build a tree structure where internal nodes test features and leaf nodes represent outcomes, selecting splits to reduce entropy.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Formula:</strong> 
+                    <div class="formula-block">Entropy: H(S) = -Σ pᵢ log₂(pᵢ)
+Info Gain: IG(S, A) = H(S) - Σ (|S_v|/|S|) * H(S_v)
+Gini Impurity: Gini(S) = 1 - Σ pᵢ²</div>
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Example:</strong> Loan approval systems (If income > 50k -> If credit score > 700 -> Approve).</div>
+                  <div class="mt-10" style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                    <div style="padding: 2px 8px; border: 1px solid var(--border-s); border-radius: 4px; font-size: 10px;">Root (Income)</div>
+                    <div style="width: 1px; height: 10px; background: var(--border-s);"></div>
+                    <div style="display: flex; gap: 20px;">
+                      <div style="padding: 2px 8px; border: 1px solid var(--border-s); border-radius: 4px; font-size: 10px; background: rgba(239, 68, 68, 0.1);">Deny</div>
+                      <div style="padding: 2px 8px; border: 1px solid var(--border-s); border-radius: 4px; font-size: 10px; background: rgba(34, 197, 94, 0.1);">Approve</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="topic-card" style="padding: 10px; margin-bottom: 8px;">
+                <div class="topic-title font-size-14" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="const d = this.parentElement.querySelector('.expand-detail'); const b = this.querySelector('.expand-btn'); d.classList.toggle('open'); b.classList.toggle('expanded');">
+                  <span><div class="ml-dot bg-blue-pale" style="display:inline-block; margin-right:6px;"></div>Neural Networks</span>
+                  <button class="expand-btn" style="padding:0; margin:0;"><i class="ti ti-chevron-down"></i></button>
+                </div>
+                <div class="expand-detail">
+                  <div class="mt-8 font-size-12 text-muted"><strong>Definition:</strong> Network of interconnected units (neurons) organized in layers, designed to model complex non-linear functions.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Theory:</strong> Learns mappings using forward propagation (features pass through weights and activations) and backpropagation (computes gradients of loss using Calculus chain rule to update weights).</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Formula:</strong> 
+                    <div class="formula-block">Neuron Output: a = g(z) = g(Σ wᵢxᵢ + b)
+ReLU Activation: g(x) = max(0, x)
+Weight Update: w ← w - η * (∂L/∂w)</div>
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Example:</strong> Handwritten digit recognition (MNIST), translation, object detection.</div>
+                  <div class="mt-10" style="display: flex; justify-content: center; align-items: center; gap: 15px;">
+                    <div style="display:flex; flex-direction:column; gap:4px;"><div style="width:10px; height:10px; border-radius:50%; background:#8b5cf6;"></div><div style="width:10px; height:10px; border-radius:50%; background:#8b5cf6;"></div></div>
+                    <i class="ti ti-arrow-right font-size-12 text-muted"></i>
+                    <div style="display:flex; flex-direction:column; gap:4px;"><div style="width:10px; height:10px; border-radius:50%; background:#ec4899;"></div><div style="width:10px; height:10px; border-radius:50%; background:#ec4899;"></div><div style="width:10px; height:10px; border-radius:50%; background:#ec4899;"></div></div>
+                    <i class="ti ti-arrow-right font-size-12 text-muted"></i>
+                    <div style="display:flex; flex-direction:column; gap:4px;"><div style="width:10px; height:10px; border-radius:50%; background:#3b82f6;"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ml-card">
+            <div class="ml-card-title text-teal">🔍 Unsupervised Learning</div>
+            <div class="ml-algo-list">
+              <div class="topic-card" style="padding: 10px; margin-bottom: 8px;">
+                <div class="topic-title font-size-14" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="const d = this.parentElement.querySelector('.expand-detail'); const b = this.querySelector('.expand-btn'); d.classList.toggle('open'); b.classList.toggle('expanded');">
+                  <span><div class="ml-dot bg-teal-dark" style="display:inline-block; margin-right:6px;"></div>K-Means Clustering</span>
+                  <button class="expand-btn" style="padding:0; margin:0;"><i class="ti ti-chevron-down"></i></button>
+                </div>
+                <div class="expand-detail">
+                  <div class="mt-8 font-size-12 text-muted"><strong>Definition:</strong> An unsupervised clustering algorithm that partitions n observations into K distinct clusters where each observation belongs to the cluster with the nearest mean.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Theory:</strong> Iteratively assigns points to nearest centroids and updates centroids to the mean of their assigned points, minimizing within-cluster variance.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Formula:</strong> 
+                    <div class="formula-block">Objective (WCSS): J = Σ_j=1ᴷ Σ_i∊S_j ||xᵢ - μ_j||²
+Centroid Update:  μ_j = (1 / |S_j|) * Σ_i∊S_j xᵢ</div>
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Example:</strong> Customer segmentation based on purchasing behavior.</div>
+                  <div class="mt-10" style="position:relative; height:60px; background:var(--bg-secondary); border-radius:4px; overflow:hidden;">
+                    <div style="position:absolute; top:20%; left:20%; width:10px; height:10px; background:transparent; border:2px solid #ef4444;"></div>
+                    <div style="position:absolute; top:15%; left:15%; width:4px; height:4px; background:#ef4444; border-radius:50%;"></div>
+                    <div style="position:absolute; top:25%; left:25%; width:4px; height:4px; background:#ef4444; border-radius:50%;"></div>
+                    
+                    <div style="position:absolute; bottom:20%; right:20%; width:10px; height:10px; background:transparent; border:2px solid #3b82f6;"></div>
+                    <div style="position:absolute; bottom:15%; right:15%; width:4px; height:4px; background:#3b82f6; border-radius:50%;"></div>
+                    <div style="position:absolute; bottom:25%; right:25%; width:4px; height:4px; background:#3b82f6; border-radius:50%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="topic-card" style="padding: 10px; margin-bottom: 8px;">
+                <div class="topic-title font-size-14" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="const d = this.parentElement.querySelector('.expand-detail'); const b = this.querySelector('.expand-btn'); d.classList.toggle('open'); b.classList.toggle('expanded');">
+                  <span><div class="ml-dot bg-teal-mid" style="display:inline-block; margin-right:6px;"></div>Hierarchical Clustering</span>
+                  <button class="expand-btn" style="padding:0; margin:0;"><i class="ti ti-chevron-down"></i></button>
+                </div>
+                <div class="expand-detail">
+                  <div class="mt-8 font-size-12 text-muted"><strong>Definition:</strong> A clustering method that builds a tree of clusters (dendrogram) either by recursively merging smaller clusters (Agglomerative) or splitting larger ones (Divisive).</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Theory:</strong> Calculates distances between clusters using linkage criteria (Single, Complete, Average) to build hierarchical groupings without predefined cluster counts.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Formula:</strong> 
+                    <div class="formula-block">Single Linkage:   d(A, B) = min { d(x, y) : x∊A, y∊B }
+Complete Linkage: d(A, B) = max { d(x, y) : x∊A, y∊B }
+Average Linkage:  d(A, B) = (1 / (|A|*|B|)) * Σ_x∊A Σ_y∊B d(x,y)</div>
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Example:</strong> Document taxonomy clustering, phylogenetic tree creation.</div>
+                  <div class="mt-10" style="display:flex; justify-content:center; align-items:flex-end; gap:10px; height:40px;">
+                    <div style="width:20px; height:20px; border-top:1px solid var(--accent); border-left:1px solid var(--accent); border-right:1px solid var(--accent);"></div>
+                    <div style="width:20px; height:30px; border-top:1px solid var(--accent); border-left:1px solid var(--accent); border-right:1px solid var(--accent);"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="topic-card" style="padding: 10px; margin-bottom: 8px;">
+                <div class="topic-title font-size-14" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="const d = this.parentElement.querySelector('.expand-detail'); const b = this.querySelector('.expand-btn'); d.classList.toggle('open'); b.classList.toggle('expanded');">
+                  <span><div class="ml-dot bg-teal-pale" style="display:inline-block; margin-right:6px;"></div>PCA (Dimensionality)</span>
+                  <button class="expand-btn" style="padding:0; margin:0;"><i class="ti ti-chevron-down"></i></button>
+                </div>
+                <div class="expand-detail">
+                  <div class="mt-8 font-size-12 text-muted"><strong>Definition:</strong> Principal Component Analysis is an unsupervised linear transformation technique used to project high-dimensional features into a lower-dimensional space.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Theory:</strong> Finds orthogonal axes (Principal Components) of maximum variance by calculating eigenvectors and eigenvalues of the data's covariance matrix.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Formula:</strong> 
+                    <div class="formula-block">Covariance Matrix: Σ = (1 / n) * XᵀX
+Eigen Decomposition: Σv = λv
+where v = Principal Component, λ = Eigenvalue (Variance)</div>
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Example:</strong> Reducing 1000-dimensional images to 50 key features for facial recognition.</div>
+                  <div class="mt-10" style="display:flex; justify-content:center; align-items:center; gap:10px;">
+                    <div style="font-size:10px; padding:4px; background:var(--bg-secondary); border:1px solid var(--border-s);">3D Data [x,y,z]</div>
+                    <i class="ti ti-arrow-right text-muted"></i>
+                    <div style="font-size:10px; padding:4px; background:var(--bg-info); border:1px solid var(--accent); color:var(--accent);">2D Plane [PC1, PC2]</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ml-card">
+            <div class="ml-card-title text-purple">🚀 Ensemble Methods</div>
+            <div class="ml-algo-list">
+              <div class="topic-card" style="padding: 10px; margin-bottom: 8px;">
+                <div class="topic-title font-size-14" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="const d = this.parentElement.querySelector('.expand-detail'); const b = this.querySelector('.expand-btn'); d.classList.toggle('open'); b.classList.toggle('expanded');">
+                  <span><div class="ml-dot bg-purple-dark" style="display:inline-block; margin-right:6px;"></div>Random Forest (Bagging)</span>
+                  <button class="expand-btn" style="padding:0; margin:0;"><i class="ti ti-chevron-down"></i></button>
+                </div>
+                <div class="expand-detail">
+                  <div class="mt-8 font-size-12 text-muted"><strong>Definition:</strong> An ensemble learning method that fits multiple decision trees in parallel on bootstrap samples of the training data and averages their predictions to reduce variance.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Theory:</strong> Builds multiple independent decision trees on randomly drawn datasets and feature subsets, combining their predictions to produce a more robust and lower-variance estimate.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Formula:</strong> 
+                    <div class="formula-block">Bagging Predict (Regression): f̂(x) = (1 / B) * Σ_b=1ᴮ f_b(x)
+Classification: Majority vote of { f₁(x), ..., f_B(x) }</div>
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Example:</strong> Fraud detection where many independent parallel rule-sets vote on a transaction.</div>
+                  <div class="mt-10" style="display:flex; justify-content:center; gap:8px;">
+                    <div style="padding:4px; font-size:10px; border:1px solid var(--border-s); border-radius:4px;">Tree 1</div>
+                    <div style="padding:4px; font-size:10px; border:1px solid var(--border-s); border-radius:4px;">Tree 2</div>
+                    <div style="padding:4px; font-size:10px; border:1px solid var(--border-s); border-radius:4px;">Tree 3</div>
+                    <i class="ti ti-arrow-right text-muted" style="align-self:center;"></i>
+                    <div style="padding:4px; font-size:10px; background:var(--bg-info); color:var(--accent); font-weight:bold; border-radius:4px;">Vote</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="topic-card" style="padding: 10px; margin-bottom: 8px;">
+                <div class="topic-title font-size-14" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="const d = this.parentElement.querySelector('.expand-detail'); const b = this.querySelector('.expand-btn'); d.classList.toggle('open'); b.classList.toggle('expanded');">
+                  <span><div class="ml-dot bg-purple-light" style="display:inline-block; margin-right:6px;"></div>Gradient Boosting (Boosting)</span>
+                  <button class="expand-btn" style="padding:0; margin:0;"><i class="ti ti-chevron-down"></i></button>
+                </div>
+                <div class="expand-detail">
+                  <div class="mt-8 font-size-12 text-muted"><strong>Definition:</strong> An ensemble method that builds weak decision trees sequentially, where each new tree is trained to predict the negative gradients (pseudo-residuals) of the loss function of the previous aggregate model.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Theory:</strong> Trains weak learners to predict gradients of the loss function. Sequentially updates the model, focusing heavily on correcting errors of prior iterations.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Formula:</strong> 
+                    <div class="formula-block">Model Update: F_m(x) = F_m₋₁(x) + γ_m * h_m(x)
+where h_m(x) is trained on pseudo-residuals:
+r_im = -[∂L(y_i, F(x_i)) / ∂F(x_i)] at F(x)=F_m₋₁(x)</div>
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Example:</strong> Predicting click-through rates (CTR) or search query ranking.</div>
+                  <div class="mt-10" style="display:flex; justify-content:center; align-items:center; gap:4px;">
+                    <div style="padding:4px; font-size:10px; border:1px solid var(--border-s); border-radius:4px;">Model 1</div>
+                    <i class="ti ti-plus text-muted" style="font-size:10px;"></i>
+                    <div style="padding:4px; font-size:10px; border:1px solid var(--border-s); border-radius:4px; background:rgba(239, 68, 68, 0.05); border-color:#ef4444;">Error Fixer</div>
+                    <i class="ti ti-arrow-right text-muted"></i>
+                    <div style="padding:4px; font-size:10px; background:var(--bg-info); color:var(--accent); font-weight:bold; border-radius:4px;">Strong Model</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ml-card">
+            <div class="ml-card-title text-orange">🤖 Probabilistic / RL</div>
+            <div class="ml-algo-list">
+              <div class="topic-card" style="padding: 10px; margin-bottom: 8px;">
+                <div class="topic-title font-size-14" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="const d = this.parentElement.querySelector('.expand-detail'); const b = this.querySelector('.expand-btn'); d.classList.toggle('open'); b.classList.toggle('expanded');">
+                  <span><div class="ml-dot bg-orange-dark" style="display:inline-block; margin-right:6px;"></div>Bayesian Networks</span>
+                  <button class="expand-btn" style="padding:0; margin:0;"><i class="ti ti-chevron-down"></i></button>
+                </div>
+                <div class="expand-detail">
+                  <div class="mt-8 font-size-12 text-muted"><strong>Definition:</strong> A probabilistic graphical model that represents conditional dependencies among a set of random variables via a Directed Acyclic Graph (DAG).</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Theory:</strong> Models variables as nodes in a DAG with edges indicating conditional dependence, computing joint distribution using Bayes' theorem.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Formula:</strong> 
+                    <div class="formula-block">Joint Probability: P(X₁, ..., Xₙ) = Π_i=1ⁿ P(Xᵢ | Parents(Xᵢ))
+Bayes' Theorem:    P(A | B) = [ P(B | A) * P(A) ] / P(B)</div>
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Example:</strong> Medical diagnosis systems inferring the probability of disease given symptoms.</div>
+                  <div class="mt-10" style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+                    <div style="width:12px; height:12px; border-radius:50%; border:1px solid var(--accent); background:var(--bg-info);"></div>
+                    <div style="display:flex; gap:10px; margin-top:-2px;">
+                      <i class="ti ti-arrow-down-left text-muted"></i>
+                      <i class="ti ti-arrow-down-right text-muted"></i>
+                    </div>
+                    <div style="display:flex; gap:20px;">
+                      <div style="width:12px; height:12px; border-radius:50%; border:1px solid var(--accent);"></div>
+                      <div style="width:12px; height:12px; border-radius:50%; border:1px solid var(--accent);"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="topic-card" style="padding: 10px; margin-bottom: 8px;">
+                <div class="topic-title font-size-14" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="const d = this.parentElement.querySelector('.expand-detail'); const b = this.querySelector('.expand-btn'); d.classList.toggle('open'); b.classList.toggle('expanded');">
+                  <span><div class="ml-dot bg-orange-pale" style="display:inline-block; margin-right:6px;"></div>Reinforcement Learning</span>
+                  <button class="expand-btn" style="padding:0; margin:0;"><i class="ti ti-chevron-down"></i></button>
+                </div>
+                <div class="expand-detail">
+                  <div class="mt-8 font-size-12 text-muted"><strong>Definition:</strong> A machine learning paradigm where an agent learns to make optimal decisions in an environment by executing actions and receiving feedback in the form of rewards or penalties.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Theory:</strong> The agent interacts with the environment through trial-and-error, utilizing the Bellman equation to calculate optimal action policies.</div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Formula:</strong> 
+                    <div class="formula-block">Q-Learning Update:
+Q(s, a) ← Q(s, a) + α * [ R + γ * max_a' Q(s', a') - Q(s, a) ]
+where α = Learning Rate, γ = Discount Factor</div>
+                  </div>
+                  <div class="mt-4 font-size-12 text-muted"><strong>Example:</strong> Game AIs (AlphaGo), robotics, or pathfinding automation.</div>
+                  <div class="mt-10" style="display:flex; justify-content:center; align-items:center; gap:8px;">
+                    <div style="padding:4px 8px; border:1px solid var(--accent); border-radius:4px; font-size:10px;">Agent</div>
+                    <div style="display:flex; flex-direction:column; align-items:center;">
+                      <i class="ti ti-arrow-right text-muted" style="font-size:10px;"> Action</i>
+                      <i class="ti ti-arrow-left text-orange" style="font-size:10px;"> Reward</i>
+                    </div>
+                    <div style="padding:4px 8px; border:1px dashed var(--border-s); background:var(--bg-secondary); border-radius:4px; font-size:10px;">Environment</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="topic-tag tag-blue-full">Unit 1 · 8 hrs</span>
+          <div class="topic-title">Foundations of ML & Statistical Learning</div>
+          <div class="topic-desc">Linear algebra, statistical learning theory, types of learning, hypothesis space, inductive bias, cross-validation, and optimization techniques.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-blue-dark">1.1 Core Concepts</h4>
+            <p class="mb-10">Machine Learning algorithms use a set of training data to search through a <strong>Hypothesis Space (H)</strong>. The algorithm's preference for certain hypotheses over others (e.g., preferring simpler models) is called its <strong>Inductive Bias</strong>.</p>
+            
+            <div class="callout-box callout-blue-full mb-10">
+              <strong>The Bias-Variance Tradeoff:</strong> The fundamental dilemma in ML.<br>
+              - <em>Bias:</em> Error introduced by approximating a real-world problem with a simplified model. High bias leads to <strong>Underfitting</strong>.<br>
+              - <em>Variance:</em> Error introduced by the model's sensitivity to small fluctuations in the training set. High variance leads to <strong>Overfitting</strong>.<br>
+              <br>
+              <strong>Formula:</strong> <code>Total Error = Bias² + Variance + Irreducible Noise</code>
+            </div>
+
+            <h4 class="mt-16 mb-10 text-blue-dark">1.2 Model Evaluation</h4>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Holdout Method:</strong> Splitting data into Training (70%), Validation (15%), and Test (15%) sets.</li>
+              <li><strong>k-Fold Cross Validation:</strong> Dataset is split into <em>k</em> equal partitions. Model trains on <em>k-1</em> partitions and is tested on the remaining 1 partition. This rotates until every partition has been used exactly once for testing. Averages the results to prevent data leaking and overfitting.</li>
+            </ul>
+
+            <h4 class="mt-16 mb-10 text-blue-dark">1.3 Optimization (Gradient Descent)</h4>
+            <p class="mb-10">To find the best model parameters `&theta;`, we minimize a <strong>Cost Function `J(&theta;)`</strong>. Gradient Descent updates parameters iteratively: <code>&theta; = &theta; - &alpha; &nabla;J(&theta;)</code>, where `&alpha;` is the learning rate.</p>
+          </div>
+        </div>
+        
+        <div class="topic-card">
+          <span class="topic-tag tag-blue-full">Unit 2 · 8 hrs</span>
+          <div class="topic-title">Bayesian Learning & Regression Models</div>
+          <div class="topic-desc">Statistical decision theory, MAP/MLE estimation, Linear Regression, Regularization (Ridge, Lasso), PCA, Partial Least Squares.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-blue-dark">2.1 Bayesian Learning</h4>
+            <p class="mb-10"><strong>Definition:</strong> A statistical framework that updates the probability of a hypothesis based on observed data and prior distributions.</p>
+            <p class="mb-10"><strong>Formulas:</strong></p>
+            <div class="formula-block">Bayes' Theorem: P(h|D) = [ P(D|h) * P(h) ] / P(D)
+MAP Estimation: h_MAP = argmax P(D|h) * P(h)
+MLE Estimation: h_MLE = argmax P(D|h)</div>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Maximum A Posteriori (MAP):</strong> Estimates parameters by combining the likelihood of observed data with prior belief distribution.</li>
+              <li><strong>Maximum Likelihood Estimation (MLE):</strong> Assumes uniform prior probabilities, optimizing parameter values to maximize likelihood of observed data.</li>
+            </ul>
+
+            <h4 class="mt-16 mb-10 text-blue-dark">2.2 Linear Regression & Regularization</h4>
+            <p class="mb-10"><strong>Definition:</strong> Linear Regression models continuous variables via linear coefficients. Regularization prevents model overfitting by introducing parameter scale penalties.</p>
+            <p class="mb-10"><strong>Formulas:</strong></p>
+            <div class="formula-block">OLS Objective:  J(β) = (1/2n) * ||y - Xβ||²
+Ridge Penalty:  J_ridge(β) = OLS_Cost + λ * ||β||₂²
+Lasso Penalty:  J_lasso(β) = OLS_Cost + λ * ||β||₁</div>
+            <p class="mb-10">Linear Regression fits a model line `y = Xβ + ε`. When columns exhibit multicollinearity, regularized regression shifts weights closer to zero:</p>
+            
+            <table class="data-table mb-10">
+              <thead><tr><th>Type</th><th>Penalty Term</th><th>Effect on Coefficients</th><th>Use Case</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Ridge (L2)</strong></td><td><code>+ &lambda;&sum;&beta;&sup2;</code></td><td>Shrinks them towards zero (but never exactly zero).</td><td>When dealing with highly correlated features (Multicollinearity).</td></tr>
+                <tr><td><strong>Lasso (L1)</strong></td><td><code>+ &lambda;&sum;|&beta;|</code></td><td>Can shrink coefficients exactly to zero.</td><td>Feature Selection. Creates sparse models.</td></tr>
+                <tr><td><strong>Elastic Net</strong></td><td>L1 + L2 combined</td><td>Balances Ridge and Lasso properties.</td><td>When features outnumber samples.</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="mt-16 mb-10 text-blue-dark">2.3 Principal Component Analysis (PCA)</h4>
+            <p class="mb-10"><strong>Definition:</strong> An unsupervised linear transform that projects features into a lower-dimensional coordinates system along axes of maximum variance.</p>
+            <p class="mb-10"><strong>Formulas:</strong></p>
+            <div class="formula-block">Covariance Matrix: Σ = (1 / n) * XᵀX
+Eigen Decomposition: Σv = λv
+where v = Principal Component, λ = Eigenvalue (Variance)</div>
+            <p class="mb-10">PCA calculates the covariance matrix of variables, performing eigenvector analysis to drop components representing low variances.</p>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-teal-full">Unit 3 · 9 hrs</span>
+          <div class="topic-title">Classification Algorithms & Neural Networks</div>
+          <div class="topic-desc">Logistic regression, LDA, QDA, Perceptron, SVM (Kernel Tricks), Decision Trees (Information Gain), ANN + Backpropagation.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-teal-dark">3.1 Linear Classifiers</h4>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Logistic Regression:</strong> Uses the Sigmoid function <code>&sigma;(z) = 1 / (1 + e^(-z))</code> to squash linear outputs into probabilities (0 to 1). Optimized via Maximum Likelihood Estimation.</li>
+              <li><strong>LDA (Linear Discriminant Analysis):</strong> A generative model that assumes features follow a Gaussian distribution. Finds axes that maximize class separability while minimizing intra-class variance.</li>
+            </ul>
+
+            <h4 class="mt-16 mb-10 text-teal-dark">3.2 Support Vector Machines (SVM)</h4>
+            <div class="container-box mb-10" style="background:var(--bg-primary); padding:1rem;">
+              <strong>Max-Margin Hyperplane:</strong> SVM draws a decision boundary that maximizes the "margin" (distance to the nearest training points, called Support Vectors).<br><br>
+              <strong>The Kernel Trick:</strong> When data is not linearly separable, SVMs project the data into a higher-dimensional space where a linear hyperplane can separate it. Instead of computing the mapping directly (which is computationally expensive), Kernels (like <em>RBF, Polynomial, Sigmoid</em>) compute the dot products in the higher dimension instantly.
+            </div>
+
+            <h4 class="mt-16 mb-10 text-teal-dark">3.3 Decision Trees</h4>
+            <p class="mb-10">Builds a tree by splitting the dataset based on feature thresholds. The "best split" is chosen by maximizing <strong>Information Gain</strong> (derived from Entropy) or minimizing <strong>Gini Impurity</strong>.</p>
+            
+            <h4 class="mt-16 mb-10 text-teal-dark">3.4 Artificial Neural Networks (ANN)</h4>
+            <p class="mb-10">Multi-layer perceptrons. Non-linearity is introduced via Activation Functions (ReLU, Tanh, Sigmoid).</p>
+            <div class="callout-box callout-teal-full mb-10">
+              <strong>Backpropagation Algorithm:</strong><br>
+              1. <em>Forward Pass:</em> Inputs pass through weights to generate an output. Loss is calculated.<br>
+              2. <em>Backward Pass:</em> The Chain Rule from calculus is applied from the output layer back to the input layer to calculate the gradient of the loss function with respect to every weight.<br>
+              3. <em>Update:</em> Weights are updated in the opposite direction of the gradient using Gradient Descent.
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-orange-full">Unit 4 · 5 hrs</span>
+          <div class="topic-title">Ensemble Learning</div>
+          <div class="topic-desc">Bagging, Random Forests, AdaBoost, Gradient Boosting, Stacking, and Hypothesis testing.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-orange-dark">4.1 The Ensemble Philosophy</h4>
+            <p class="mb-10">Ensembles combine the predictions of multiple "weak learners" (models that are only slightly better than random guessing) to create one highly accurate "strong learner".</p>
+            
+            <table class="data-table mb-10">
+              <thead><tr><th>Method</th><th>Execution</th><th>Algorithm Example</th><th>Primary Goal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Bagging</strong></td><td>Trains models <em>independently</em> in parallel using Bootstrap Sampling (sampling with replacement). Outputs the majority vote or average.</td><td>Random Forest</td><td>Reduces Variance (Prevents Overfitting)</td></tr>
+                <tr><td><strong>Boosting</strong></td><td>Trains models <em>sequentially</em>. Each subsequent model focuses heavily on the data points that the previous model misclassified.</td><td>AdaBoost, XGBoost</td><td>Reduces Bias (Improves Accuracy)</td></tr>
+                <tr><td><strong>Stacking</strong></td><td>Trains a "Meta-Model" (e.g., Logistic Regression) that takes the predictions of various base models as its input features.</td><td>Super Learner</td><td>Optimizes overall predictive power</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-red-full">Unit 5 · 5 hrs</span>
+          <div class="topic-title">Unsupervised Learning: Clustering</div>
+          <div class="topic-desc">K-means, K-medoids, density-based (DBSCAN), hierarchical clustering, and evaluation metrics (Silhouette score).</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-red-dark">5.1 Centroid & Density Based Clustering</h4>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>K-Means:</strong> Iteratively assigns points to the nearest centroid, then updates the centroid to the mean of the points. <em>Pros:</em> Extremely fast. <em>Cons:</em> Requires `K` beforehand, assumes spherical clusters, highly sensitive to outliers.</li>
+              <li><strong>DBSCAN:</strong> Groups points that are closely packed together based on an <code>epsilon</code> radius and a <code>MinPts</code> threshold. Points in low-density regions are flagged as Outliers. <em>Pros:</em> Finds arbitrarily shaped clusters, robust to noise.</li>
+            </ul>
+
+            <h4 class="mt-16 mb-10 text-red-dark">5.2 Hierarchical Clustering</h4>
+            <p class="mb-10">Builds a tree of clusters called a <strong>Dendrogram</strong>. Does not require specifying `K` in advance.</p>
+            <ul class="bullet-list ml-24 mb-10">
+              <li><strong>Agglomerative (Bottom-Up):</strong> Starts with each point as its own cluster, then merges the two closest clusters iteratively until only one root cluster remains.</li>
+              <li><strong>Divisive (Top-Down):</strong> Starts with all points in one giant cluster, then splits them recursively.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag tag-purple-full">Unit 6 · 7 hrs</span>
+          <div class="topic-title">Probabilistic Models & Reinforcement Learning</div>
+          <div class="topic-desc">Gaussian Mixture Models (GMM), EM algorithm, Bayesian Networks, Markov Decision Processes (MDP), and Q-Learning.</div>
+          <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+          <div class="expand-detail">
+            <h4 class="mt-8 mb-10 text-purple-dark">6.1 Soft Clustering with GMMs</h4>
+            <p class="mb-10"><strong>Gaussian Mixture Models (GMM):</strong> Assumes data is generated from a mixture of several Gaussian distributions. Unlike K-Means (hard clustering), GMM performs "soft clustering"—meaning a point belongs to a cluster with a specific probability.</p>
+            <div class="container-box mb-10" style="background:var(--bg-primary); padding:1rem;">
+              <strong>The Expectation-Maximization (EM) Algorithm:</strong><br>
+              Used to find the maximum likelihood parameters for GMMs.<br>
+              - <em>E-Step:</em> Given current parameters, estimate the probability that each point belongs to each cluster.<br>
+              - <em>M-Step:</em> Given these probabilities, update the parameters (Mean, Variance, Weight) of the Gaussians to maximize the likelihood. Repeats until convergence.
+            </div>
+
+            <h4 class="mt-16 mb-10 text-purple-dark">6.2 Reinforcement Learning (RL)</h4>
+            <p class="mb-10">In RL, an <strong>Agent</strong> interacts with an <strong>Environment</strong>. The agent observes a <strong>State (s)</strong>, takes an <strong>Action (a)</strong>, transitions to a new state `s'`, and receives a <strong>Reward (r)</strong>. The goal is to learn an optimal <strong>Policy (&pi;)</strong> that maximizes the cumulative discounted reward.</p>
+            
+            <div class="callout-box callout-purple-full mb-10">
+              <strong>Q-Learning & The Bellman Equation:</strong><br>
+              A model-free RL algorithm. It updates an action-value function `Q(s,a)` iteratively:<br><br>
+              <code>Q(s, a) &larr; Q(s, a) + &alpha; [ r + &gamma; max Q(s', a') - Q(s, a) ]</code><br><br>
+              Where `&alpha;` is the learning rate, and `&gamma;` is the discount factor for future rewards.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="viz-section interactive-card plain-bg">
+        <div class="viz-title">Bias-Variance Tradeoff Visualiser</div>
+        <div class="form-row">
+          <div>
+            <label>Model Complexity: <span id="cxVal">5</span>/10</label>
+            <input type="range" id="cxSlider" min="1" max="10" value="5" oninput="document.getElementById('cxVal').textContent=this.value;calcBV()">
+          </div>
+          <div>
+            <label>Training Data Size: <span id="dsVal">500</span></label>
+            <input type="range" id="dsSlider" min="50" max="2000" step="50" value="500" oninput="document.getElementById('dsVal').textContent=this.value;calcBV()">
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-card"><div class="metric-val" id="biasOut">—</div><div class="metric-lbl">Bias²</div></div>
+          <div class="metric-card"><div class="metric-val" id="varOut">—</div><div class="metric-lbl">Variance</div></div>
+          <div class="metric-card"><div class="metric-val" id="totalOut">—</div><div class="metric-lbl">Total Error</div></div>
+          <div class="metric-card"><div class="metric-val" id="regimeOut">—</div><div class="metric-lbl">Regime</div></div>
+        </div>
+        <div class="result-box" id="bvResult">
+          <div class="result-title" id="bvTitle">Adjust sliders to see analysis</div>
+          <div class="result-desc" id="bvDesc"></div>
+        </div>
+      </div>
+
+      <div class="ref-grid">
+        <div class="ref-card"><div class="ref-num">1</div><div><div class="ref-title">Machine Learning</div><div class="ref-author">Tom Mitchell · 1st Ed · McGraw-Hill, 1997</div></div></div>
+        <div class="ref-card"><div class="ref-num">2</div><div><div class="ref-title">Introduction to Machine Learning</div><div class="ref-author">Ethem Alpaydin · 2nd Ed · MIT Press</div></div></div>
+        <div class="ref-card"><div class="ref-num">3</div><div><div class="ref-title">The Elements of Statistical Learning</div><div class="ref-author">Hastie, Tibshirani, Friedman · 2nd Ed, 2009</div></div></div>
+        <div class="ref-card"><div class="ref-num">4</div><div><div class="ref-title">Understanding Machine Learning</div><div class="ref-author">Shalev-Shwartz & Ben-David · Cambridge, 2017</div></div></div>
+      </div>
+
+      <div class="viz-section interactive-card plain-bg mt-32">
+        <div class="viz-title">Interactive: K-Means Clustering Simulator</div>
+        <div class="viz-sub">Watch how centroids adjust to find clusters in random data.</div>
+        <div class="kmeans-container-canvas">
+          <div id="kmPoint1" class="kmeans-point km-pt-red p1"></div>
+          <div id="kmPoint2" class="kmeans-point km-pt-red p2"></div>
+          <div id="kmPoint3" class="kmeans-point km-pt-blue p3"></div>
+          <div id="kmPoint4" class="kmeans-point km-pt-blue p4"></div>
+          <div id="kmCentroid1" class="kmeans-centroid km-c-red"></div>
+          <div id="kmCentroid2" class="kmeans-centroid km-c-blue"></div>
+        </div>
+        <button onclick="runKMeansStep()" class="btn mt-16 font-weight-600">Run Step</button>
+        <div id="kmLog" class="mt-8 font-size-12 text-muted">Click "Run Step" to move centroids closer to the data points.</div>
+      </div>
+
+      <div class="viz-section mt-32">
+        <div class="viz-title">Deep Neural Network Architecture</div>
+        <div class="dnn-container">
+          <div class="dnn-layer">
+            <div class="layer-title">Input Layer</div>
+            <div class="node-column">
+              <div class="neuron-node neuro-blue"></div>
+              <div class="neuron-node neuro-blue"></div>
+              <div class="neuron-node neuro-blue"></div>
+            </div>
+          </div>
+          <div class="dnn-arrow">→</div>
+          <div class="dnn-layer">
+            <div class="layer-title">Hidden Layer 1</div>
+            <div class="node-column">
+              <div class="neuron-node neuro-purple"></div>
+              <div class="neuron-node neuro-purple"></div>
+              <div class="neuron-node neuro-purple"></div>
+              <div class="neuron-node neuro-purple"></div>
+            </div>
+          </div>
+          <div class="dnn-arrow">→</div>
+          <div class="dnn-layer">
+            <div class="layer-title">Hidden Layer 2</div>
+            <div class="node-column">
+              <div class="neuron-node neuro-pink"></div>
+              <div class="neuron-node neuro-pink"></div>
+              <div class="neuron-node neuro-pink"></div>
+              <div class="neuron-node neuro-pink"></div>
+            </div>
+          </div>
+          <div class="dnn-arrow">→</div>
+          <div class="dnn-layer">
+            <div class="layer-title">Output Layer</div>
+            <div class="node-column">
+              <div class="neuron-node neuro-orange"></div>
+              <div class="neuron-node neuro-orange"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="viz-section interactive-card plain-bg mt-32">
+        <div class="viz-title">Activation Functions Explorer</div>
+        <div class="button-row mt-16">
+          <button class="btn-outline active" id="actSigBtn" onclick="switchActivation('sig')">Sigmoid</button>
+          <button class="btn-outline" id="actReluBtn" onclick="switchActivation('relu')">ReLU</button>
+          <button class="btn-outline" id="actTanhBtn" onclick="switchActivation('tanh')">Tanh</button>
+        </div>
+        <div class="activation-display-panel" style="display: flex; gap: 20px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 250px;">
+            <h3 id="actTitle" class="text-accent mb-8">Sigmoid</h3>
+            <p id="actFormula" class="formula-block">f(x) = 1 / (1 + e^-x)</p>
+            <p id="actDesc" class="mt-12 font-size-13 line-height-16">Maps input values to a range between 0 and 1. Commonly used in binary classification output layers. Prone to vanishing gradient problem.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.25); border-radius: 8px; border: 1px solid var(--border-p); padding: 10px; flex-shrink: 0; margin: 0 auto;">
+            <canvas id="actCanvas" width="220" height="140" style="background: transparent;"></canvas>
+            <div style="font-size: 10px; color: var(--text-s); margin-top: 6px; font-family: var(--font-title); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Activation Curve Graphic</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="viz-section mt-32">
+        <div class="viz-title">Machine Learning Comprehensive Glossary</div>
+        <div class="glossary-grid mt-16">
+          <div class="glossary-item"><strong>Backpropagation:</strong> Algorithm for computing the gradient of the loss function with respect to neural network weights.</div>
+          <div class="glossary-item"><strong>Bias-Variance Tradeoff:</strong> The balance between a model's ability to fit training data (low bias) and generalize to new data (low variance).</div>
+          <div class="glossary-item"><strong>Cross-Entropy:</strong> Common loss function for classification tasks. Measures the difference between two probability distributions.</div>
+          <div class="glossary-item"><strong>Epoch:</strong> One complete pass through the entire training dataset during the learning process.</div>
+          <div class="glossary-item"><strong>Gradient Descent:</strong> Optimization algorithm used to minimize the loss function by iteratively moving in the direction of steepest descent.</div>
+          <div class="glossary-item"><strong>Hyperparameter:</strong> A parameter whose value is set before the learning process begins (e.g., learning rate, number of layers).</div>
+          <div class="glossary-item"><strong>Overfitting:</strong> When a model learns the detail and noise in the training data to the extent that it negatively impacts performance on new data.</div>
+          <div class="glossary-item"><strong>Regularization:</strong> Techniques (like L1/L2 penalty) used to reduce overfitting by penalizing large weights.</div>
+          <div class="glossary-item"><strong>Support Vector:</strong> The data points closest to the hyperplane in an SVM model. They dictate the position of the boundary.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="unit-panel" id="panel-3">
+      <div class="viz-section force-visible">
+        <div class="viz-title">Program Elective Courses</div>
+        <p class="viz-sub">Choose one from <strong>Elective-I</strong> (8 options) and one from <strong>Elective-II</strong> (7 options). Each carries 3 credits (3-0-0-3).</p>
+        <div class="button-row mb-16">
+          <button class="btn-outline" onclick="filterEl('all',this)">All (15)</button>
+          <button class="btn-outline" onclick="filterEl('i',this)">Elective-I (8)</button>
+          <button class="btn-outline" onclick="filterEl('ii',this)">Elective-II (7)</button>
+        </div>
+        <div class="el-grid" id="elGrid"></div>
+      </div>
+
+      <div class="viz-section force-visible mt-32">
+        <div class="viz-title">Elective Highlights — Quick Reference</div>
+        <div class="topics-grid">
+          <div class="topic-card force-visible">
+            <span class="topic-tag blue-card">105616 — Elective II</span>
+            <div class="topic-title">Cryptography & Network Security</div>
+            <div class="topic-desc">DES, AES, RSA, Diffie-Hellman, Hash functions (SHA), Digital signatures, TLS/SSL.</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <p class="mb-10">Cryptography secures communication in the presence of malicious third parties.</p>
+              <div class="callout-box callout-blue mb-10">
+                <strong>Symmetric Encryption (Private Key):</strong> Same key for encryption and decryption. Fast but has key-distribution issues.<br>
+                - <em>DES:</em> 56-bit key (Outdated & insecure).<br>
+                - <em>AES:</em> 128/192/256-bit keys. The current worldwide standard.
+              </div>
+              <div class="callout-box callout-purple mb-10">
+                <strong>Asymmetric Encryption (Public Key):</strong> Uses a Public key to encrypt, and a Private key to decrypt.<br>
+                - <em>RSA Algorithm:</em> Relies on the mathematical difficulty of factoring large prime numbers.<br>
+                - <em>Diffie-Hellman:</em> Allows two parties to securely establish a shared secret key over an insecure channel.
+              </div>
+              <p><strong>Hash Functions (SHA-256):</strong> One-way math functions that turn data into a fixed-size string. Used for checking data integrity.</p>
+            </div>
+          </div>
+          
+          <div class="topic-card force-visible">
+            <span class="topic-tag purple-card">105612 — Elective II</span>
+            <div class="topic-title">Advanced Data Structures & Algorithms</div>
+            <div class="topic-desc">Heaps, hash tables, Bloom filters, suffix trees, network flow, NP-completeness, FFT.</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <p class="mb-10">Advanced DSA goes beyond basic arrays and lists to solve complex computational problems efficiently.</p>
+              <table class="data-table mb-10">
+                <thead>
+                  <tr><th>Structure</th><th>Use Case</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>Bloom Filters</strong></td><td>Space-efficient probabilistic set. Tells you if an item is "definitely not" or "probably" in a set. (No false negatives).</td></tr>
+                  <tr><td><strong>Suffix Trees</strong></td><td>Allows super fast O(m) string/pattern matching. Built in O(n) time using Ukkonen's algorithm.</td></tr>
+                </tbody>
+              </table>
+              <p><strong>Network Flow (Max Flow):</strong> Finding the maximum flow through a network. Algorithms include Ford-Fulkerson and Edmonds-Karp.</p>
+              <p><strong>NP-Completeness:</strong> Problems where a solution can be verified quickly (in polynomial time), but there is no known way to find a solution quickly. If you solve one NP-Complete problem in polynomial time, you solve them all (P=NP).</p>
+            </div>
+          </div>
+
+          <div class="topic-card force-visible">
+            <span class="topic-tag teal-card">105604 — Elective I</span>
+            <div class="topic-title">Graph Theory</div>
+            <div class="topic-desc">Euler/Hamiltonian paths, trees, spanning trees, planar graphs, colouring, directed graphs.</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <ul class="bullet-list ml-24 mb-10">
+                <li><strong>Euler Path:</strong> A trail in a finite graph that visits every <em>edge</em> exactly once. It exists if and only if exactly 0 or 2 vertices have an odd degree.</li>
+                <li><strong>Hamiltonian Path:</strong> A path in an undirected or directed graph that visits every <em>vertex</em> exactly once. Finding this is NP-complete.</li>
+                <li><strong>Minimum Spanning Tree (MST):</strong> A subset of edges that connects all vertices with the minimum possible total edge weight. Solved greedily by <em>Kruskal's</em> or <em>Prim's</em> algorithms.</li>
+              </ul>
+              <p><strong>Planar Graphs & Coloring:</strong> A graph is planar if it can be drawn on a plane without edges crossing. The <em>Four Color Theorem</em> states that any planar graph can be colored with at most 4 colors such that no two adjacent vertices share the same color.</p>
+            </div>
+          </div>
+
+          <div class="topic-card force-visible">
+            <span class="topic-tag orange-card">105610 — Elective I</span>
+            <div class="topic-title">Soft Computing</div>
+            <div class="topic-desc">Neural networks, fuzzy logic, genetic algorithms — computational intelligence methods.</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <p class="mb-10">Unlike hard computing, soft computing is tolerant of imprecision, uncertainty, and partial truth.</p>
+              <div class="callout-box callout-orange mb-10">
+                <strong>Fuzzy Logic:</strong> Standard boolean logic is 0 (False) or 1 (True). Fuzzy logic allows truth values anywhere between 0 and 1. Used heavily in control systems (like AC temperature regulators).
+              </div>
+              <p><strong>Genetic Algorithms (GA):</strong> Inspired by Charles Darwin's theory of natural evolution. The algorithm repeatedly modifies a population of individual solutions. Phases include:<br>
+              1. <em>Selection:</em> Selecting the fittest individuals.<br>
+              2. <em>Crossover:</em> Combining two parents to create offspring.<br>
+              3. <em>Mutation:</em> Randomly altering parts of the offspring to maintain genetic diversity.</p>
+            </div>
+          </div>
+
+          <div class="topic-card force-visible">
+            <span class="topic-tag blue-card">105615 — Elective II</span>
+            <div class="topic-title">Cloud Computing</div>
+            <div class="topic-desc">IaaS, PaaS, SaaS, Virtualization, Hypervisors, Cloud Security, AWS/Azure concepts.</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <table class="data-table mb-10">
+                <thead>
+                  <tr><th>Service Model</th><th>Description</th><th>Example</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>IaaS</strong> (Infrastructure)</td><td>Provides virtualized computing resources over the internet. You manage the OS and apps.</td><td>AWS EC2, Google Compute Engine</td></tr>
+                  <tr><td><strong>PaaS</strong> (Platform)</td><td>Provides a platform allowing customers to develop, run, and manage apps without infrastructure hassle.</td><td>Heroku, AWS Elastic Beanstalk</td></tr>
+                  <tr><td><strong>SaaS</strong> (Software)</td><td>Software hosted centrally and licensed on a subscription basis. End-user ready.</td><td>Google Workspace, Zoom</td></tr>
+                </tbody>
+              </table>
+              <p><strong>Hypervisors:</strong> Software that creates and runs Virtual Machines (VMs). <em>Type 1 (Bare-metal)</em> runs directly on the host's hardware (e.g., VMware ESXi). <em>Type 2 (Hosted)</em> runs on top of a conventional OS (e.g., VirtualBox).</p>
+            </div>
+          </div>
+
+          <div class="topic-card force-visible">
+            <span class="topic-tag green-card">105614 — Elective I</span>
+            <div class="topic-title">Image Processing</div>
+            <div class="topic-desc">Spatial filters, Edge detection (Sobel, Canny), Fourier Transform, Image compression.</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <p class="mb-10">Digital Image Processing involves manipulating an image matrix to enhance it or extract information.</p>
+              <ul class="bullet-list ml-24 mb-10">
+                <li><strong>Spatial Filters:</strong> Operations applied directly to pixels. <em>Mean filters</em> blur images, <em>Median filters</em> are excellent for removing "salt and pepper" noise.</li>
+                <li><strong>Edge Detection:</strong> Identifies points where image brightness changes sharply. Common operators include <em>Sobel</em> (1st derivative), <em>Laplacian</em> (2nd derivative), and <em>Canny</em> (the optimal multi-stage algorithm).</li>
+                <li><strong>Compression:</strong> Reducing the size of image data. <em>Lossless</em> (Huffman, LZW) allows perfect reconstruction. <em>Lossy</em> (JPEG, which uses Discrete Cosine Transform) sacrifices some quality for massive size reduction.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="topic-card force-visible">
+            <span class="topic-tag orange-card">105608 — Elective I</span>
+            <div class="topic-title">Data Mining</div>
+            <div class="topic-desc">KDD process, Apriori Algorithm, FP-Growth, Classification, and Association Rules.</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <p class="mb-10">Data Mining is the process of discovering patterns in large data sets.</p>
+              <ul class="bullet-list ml-24 mb-10">
+                <li><strong>Association Rules:</strong> Finds "if-then" rules. <em>Apriori</em> generates frequent itemsets by pruning candidates. <em>FP-Growth</em> builds a tree to avoid generating candidates entirely.</li>
+                <li><strong>KDD Process:</strong> Knowledge Discovery in Databases involves Data Cleaning &rarr; Integration &rarr; Selection &rarr; Transformation &rarr; Data Mining &rarr; Pattern Evaluation &rarr; Knowledge Presentation.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="topic-card force-visible">
+            <span class="topic-tag purple-card">105617 — Elective II</span>
+            <div class="topic-title">Internet of Things (IoT)</div>
+            <div class="topic-desc">Sensors, Actuators, Arduino/Raspberry Pi, MQTT, CoAP, and IoT Architecture.</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <p class="mb-10">IoT describes the network of physical objects embedded with sensors and software.</p>
+              <table class="data-table mb-10">
+                <thead><tr><th>Protocol</th><th>Transport</th><th>Architecture</th><th>Use Case</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>MQTT</strong></td><td>TCP</td><td>Publish/Subscribe</td><td>Lightweight telemetry for constrained devices.</td></tr>
+                  <tr><td><strong>CoAP</strong></td><td>UDP</td><td>Request/Response</td><td>M2M communication in constrained nodes.</td></tr>
+                </tbody>
+              </table>
+              <p><strong>Edge Computing:</strong> Processing data closer to where it is generated rather than sending all data to the central cloud, reducing latency and bandwidth.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="unit-panel" id="panel-4">
+      <div class="viz-section force-visible">
+        <div class="viz-title">Lab Courses Overview</div>
+        <div class="topics-grid">
+          <div class="topic-card force-visible">
+            <span class="topic-tag blue-card">100602P · 4 hrs/week · 2 cr</span>
+            <div class="topic-title"><i class="ti ti-router"></i> Computer Networks Lab</div>
+            <div class="topic-desc">Hands-on experiments based on CN theory — socket programming, Wireshark, routing protocols, network simulation (Cisco Packet Tracer / NS3).</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <p class="mb-10">The Computer Networks Lab focuses on implementing networking concepts through Socket Programming and Simulation tools.</p>
+              <div class="callout-box callout-blue mb-10">
+                <strong>TCP Socket Programming (Python):</strong>
+                <pre class="code-snippet-block"><code>import socket
+# Server Side
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(('localhost', 8080))
+s.listen(1)
+conn, addr = s.accept()
+print('Connected by', addr)</code></pre>
+              </div>
+              <ul class="bullet-list ml-24 mb-10">
+                <li><strong>Wireshark:</strong> Used to capture and analyze live packet data (HTTP, TCP handshake).</li>
+                <li><strong>Packet Tracer / NS3:</strong> Used to simulate routing topologies like RIP, OSPF, and BGP.</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="topic-card force-visible">
+            <span class="topic-tag purple-card">105601P · 4 hrs/week · 2 cr</span>
+            <div class="topic-title"><i class="ti ti-terminal"></i> Compiler Design Lab</div>
+            <div class="topic-desc">Lexer with lex/flex, parser with yacc/bison, symbol table implementation, three-address code generation, simple expression compiler.</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <p class="mb-10">The CD Lab teaches how to build the components of a compiler using tools like Lex and Yacc.</p>
+              <div class="callout-box callout-purple mb-10">
+                <strong>Lex (Lexical Analyzer):</strong>
+                <pre class="code-snippet-block"><code>%{
+#include &lt;stdio.h&gt;
+%}
+%%
+[0-9]+  { printf("Number: %s\n", yytext); }
+[a-zA-Z]+ { printf("Identifier: %s\n", yytext); }
+%%
+int main() { yylex(); return 0; }</code></pre>
+              </div>
+              <p><strong>Yacc (Parser Generator):</strong> Works alongside Lex to build an Abstract Syntax Tree (AST) using LALR grammar rules.</p>
+              <p><strong>Three-Address Code (TAC):</strong> An intermediate representation where each instruction has at most three operands (e.g., `t1 = a + b`).</p>
+            </div>
+          </div>
+
+          <div class="topic-card force-visible">
+            <span class="topic-tag green-card">105620P · 2 hrs/week · 1 cr</span>
+            <div class="topic-title"><i class="ti ti-brand-python"></i> Python Programming Lab</div>
+            <div class="topic-desc">35 experiments covering data types, strings, lists, sets, dicts, files, functions, OOP, comprehensions, generators, iterators. Perform any 10.</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <p class="mb-10">Python Lab covers the fundamentals and advanced features of Python. Students must execute at least 10 out of 35 experiments.</p>
+              
+              <div class="callout-box callout-green mb-10">
+                <strong>Experiment: Generator for Fibonacci Sequence</strong>
+                <pre class="code-snippet-block"><code>def fib_gen(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+print(list(fib_gen(10))) # Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]</code></pre>
+              </div>
+              
+              <div class="callout-box callout-green mb-10">
+                <strong>Experiment: Object-Oriented Programming (OOP)</strong>
+                <pre class="code-snippet-block"><code>class Student:
+    def __init__(self, name, roll):
+        self.name = name
+        self.roll = roll
+        
+    def display(self):
+        print(f"Student: {self.name}, Roll: {self.roll}")
+
+s1 = Student("Pankaj", 101)
+s1.display()</code></pre>
+              </div>
+
+              <ul class="bullet-list ml-24 mb-10">
+                <li><strong>Data Structures:</strong> Lists, Tuples, Dictionaries, Sets.</li>
+                <li><strong>Advanced Syntax:</strong> List comprehensions (<code>[x*2 for x in nums]</code>).</li>
+                <li><strong>File I/O:</strong> Reading/writing CSV and text files using <code>with open()</code> context managers.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="topic-card force-visible">
+            <span class="topic-tag orange-card">100604P · 4 hrs/week · 2 cr</span>
+            <div class="topic-title"><i class="ti ti-certificate"></i> NPTEL Courses-2 Lab</div>
+            <div class="topic-desc">Complete approved NPTEL online courses with certification. Contributes 2 credits towards practical requirements. Swayam portal.</div>
+            <button class="expand-btn" onclick="toggleExpand(this)"><i class="ti ti-chevron-down"></i></button>
+            <div class="expand-detail">
+              <p class="mb-10">Students must enroll in and complete NPTEL online courses via the SWAYAM portal.</p>
+              <div class="container-box mb-10">
+                <strong>Guidelines:</strong><br>
+                - Courses must be approved by the department.<br>
+                - A valid certification of completion is required to earn the 2 credits.<br>
+                - Typically, an 8-week or 12-week course is selected based on the student's elective preference (e.g., Joy of Computing using Python, Cloud Computing).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="viz-section force-visible mt-32">
+        <div class="viz-title">Python Lab — All 35 Experiments (any 10 required)</div>
+        <div id="pyExpList"></div>
+      </div>
+    </div>
+
+    <div class="unit-panel" id="panel-5">
+      <div class="viz-section force-visible">
+        <div class="viz-title">Massive Quiz Bank — BEU CSE Sem VI</div>
+        <p class="viz-sub">Test your understanding across Computer Networks, Compiler Design, Machine Learning, and Electives. Featuring a massive 100+ question bank covering all units.</p>
+        <div class="quiz-wrap" id="quizWrap">
+          <div class="q-progress" id="qProgress">Question 1</div>
+          <div class="q-text" id="qText"></div>
+          <div class="q-options" id="qOptions"></div>
+          <div class="q-feedback" id="qFeedback"></div>
+          <div class="q-nav">
+            <button class="btn display-none" id="qNext" onclick="nextQ()">Next Question →</button>
+            <span id="qScore" class="q-realtime-score-panel"></span>
+          </div>
+        </div>
+        <div id="quizDone" class="display-none">
+          <div class="score-box">
+            <div class="score-big" id="finalScore"></div>
+            <div class="final-message-subtext" id="finalMsg"></div>
+            <button class="btn mt-16" onclick="resetQuiz()">Retake Quiz</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="unit-panel" id="panel-6">
+      <div class="viz-section force-visible">
+        <div class="viz-title">My Saved Notes</div>
+        <p class="viz-sub">Here you can quickly access all the topics you have bookmarked for last-minute revision.</p>
+        <div id="bookmarksList" class="topics-grid mt-24"></div>
+        <div id="noBookmarksMsg" class="empty-bookmarks-fallback-box">
+          <i class="ti ti-bookmark empty-bookmarks-icon"></i>
+          You haven't bookmarked any notes yet. Click the bookmark icon on any topic card to save it here!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="world-footer">
+    <div class="footer-bottom">
+      <div class="social-links mt-20">
+        <!-- LinkedIn -->
+        <a class="social-circle linkedin" href="https://www.linkedin.com/in/pankaj-kumar-0a98b5302/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+          <i class="ti ti-brand-linkedin"></i>
+        </a>
+        <!-- GitHub -->
+        <a class="social-circle github" href="https://github.com/Learnbits477" target="_blank" rel="noopener noreferrer" title="GitHub">
+          <i class="ti ti-brand-github"></i>
+        </a>
+        <!-- Twitter (X) -->
+        <a class="social-circle twitter" href="https://x.com/PankajB42550" target="_blank" rel="noopener noreferrer" title="Twitter">
+          <i class="ti ti-brand-x"></i>
+        </a>
+        <!-- Email -->
+        <a class="social-circle email" href="mailto:pankajbabu465@gmail.com" title="Email">
+          <i class="ti ti-mail"></i>
+        </a>
+        <!-- Login -->
+        <a class="social-circle login" href="login.html" title="Student Portal">
+          <i class="ti ti-user"></i>
+        </a>
+      </div>
+      <p>&copy; 2026 <a href="https://www.linkedin.com/in/pankaj-kumar-0a98b5302/" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: none; font-weight: 600;">Pankaj Kumar</a>. All rights reserved.</p>
+      <p>Crafted with <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="#ef4444" style="display: inline-block; vertical-align: middle; margin: 0 2px;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> for students.</p>
+    </div>
+  </footer>
+
+
+  <button class="ai-fab" id="aiFab" onclick="toggleChat()" title="Ask Doubts">
+    <i class="ti ti-robot"></i>
+  </button>
+
+  <div class="ai-chat-window" id="aiChatWindow">
+    <div class="ai-chat-header">
+      <div class="ai-chat-title"><i class="ti ti-sparkles text-accent"></i> Study Assistant</div>
+      <div class="flex-gap-8">
+        <button class="ai-close-btn" onclick="clearChat()" title="Clear Chat"><i class="ti ti-trash"></i></button>
+        <button class="ai-close-btn" onclick="toggleMaxChat()" title="Maximize"><i class="ti ti-maximize" id="maxIcon"></i></button>
+        <button class="ai-close-btn" onclick="toggleChat()" title="Close"><i class="ti ti-x"></i></button>
+      </div>
+    </div>
+    <div class="ai-chat-body" id="aiChatBody">
+      <div class="ai-msg bot">
+        <div class="ai-avatar"><i class="ti ti-robot"></i></div>
+        <div class="ai-text">Hello! 👋 I am your dedicated BEU B.Tech CSE Semester VI AI Study Assistant. I am fully dialed into your core curriculum (Computer Networks, Compiler Design, Machine Learning, and Electives). As your expert engineering professor and peer tutor, how can I help you understand concepts, solve numerical equations, or navigate your syllabus today?</div>
+      </div>
+    </div>
+    
+    <div class="ai-quick-prompts" id="aiQuickPrompts">
+      <button onclick="setAiInput('Explain the OSI Model layers in CN')">OSI Model</button>
+      <button onclick="setAiInput('What are the phases of Compiler Design?')">Compiler Phases</button>
+      <button onclick="setAiInput('Explain Supervised vs Unsupervised ML')">ML Basics</button>
+    </div>
+
+    <div class="ai-chat-input-area">
+      <input type="text" class="ai-input" id="aiInput" placeholder="Ask a doubt..." onkeydown="handleChatKey(event)" autocomplete="off">
+      <button class="ai-send-btn" id="aiSendBtn" onclick="sendChat()"><i class="ti ti-send"></i></button>
+    </div>
+  </div>
+
+  <div id="searchOverlay">
+    <div id="searchBox">
+      <div class="search-input-row">
+        <i class="ti ti-search"></i>
+        <input type="text" id="searchInput" placeholder="Search topics, units, algorithms…" oninput="onSearchInput(this.value)" onkeydown="onSearchKey(event)" autocomplete="off">
+        <span class="search-kbd" onclick="closeSearch()">Esc</span>
+      </div>
+      <div id="searchResults"></div>
+    </div>
+  </div>
+
+  <script src="assets/js/calculators.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script src="assets/js/app.js"></script>
+
+  <script>
+    // Splash screen fade out
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('splash-loader');
+      if (loader) {
+        setTimeout(() => {
+          loader.classList.add('hidden');
+          setTimeout(() => loader.style.display = 'none', 600);
+        }, 1200); // Wait 1.2s to show animation
+      }
+    });
+  </script>
+</body>
+</html>
